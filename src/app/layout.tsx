@@ -1,3 +1,4 @@
+import { AppProviders } from "@/components/Providers/AppProvider";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -33,7 +34,11 @@ export default function RootLayout({
         sizes="16x16"
         href="favicon/favicon-16x16.png"
       />
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <AppProviders>
+          {children}
+        </AppProviders>
+      </body>
     </html>
   );
 }
