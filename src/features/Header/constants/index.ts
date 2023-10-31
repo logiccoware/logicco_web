@@ -6,7 +6,7 @@ import { Info, Mail } from "lucide-react";
 
 export const NAVBAR_DRAWER_AUTH_LINKS: NavbarLink[] = [
   {
-    label: "Logout",
+    label: "Payees",
     href: HOME_ROUTE,
   },
 ];
