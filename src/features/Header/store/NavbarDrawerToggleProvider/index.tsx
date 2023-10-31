@@ -5,7 +5,7 @@ import { navbarDrawerToggleMachine } from "@/features/Header/store/navbarDrawerM
 import { PropsWithChildren } from "react";
 
 export const NavbarDrawerToggleContext = createActorContext(
-  navbarDrawerToggleMachine
+  navbarDrawerToggleMachine,
 );
 
 export function NavbarDrawerToggleProvider({ children }: PropsWithChildren) {

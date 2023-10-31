@@ -15,7 +15,7 @@ export class SignupInviteService {
   signupInvite(payload: SignupInvitePayload): Promise<Response> {
     return this.apiService.request({
       method: "POST",
-      endpoint: "/signup-invite",
+      endpoint: "/iam/sign-up-invite",
       body: payload,
     });
   }

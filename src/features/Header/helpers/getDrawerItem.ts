@@ -1,4 +1,3 @@
-import { User } from "@/lib/types";
 import {
   NAVBAR_DRAWER_AUTH_LINKS,
   NAVBAR_DRAWER_NON_AUTH_LINKS,
@@ -9,6 +8,6 @@ import {
  * @param user - The user object. If provided, the function returns authenticated drawer items, otherwise non-authenticated drawer items.
  * @returns An array of drawer items.
  */
-export function getDrawerItem(user?: User) {
-  return user ? NAVBAR_DRAWER_AUTH_LINKS : NAVBAR_DRAWER_NON_AUTH_LINKS;
+export function getDrawerItem(isUserAuthenticated: boolean) {
+  return isUserAuthenticated ? NAVBAR_DRAWER_AUTH_LINKS : NAVBAR_DRAWER_NON_AUTH_LINKS;
 }

@@ -1,15 +1,15 @@
-import NextLink from "next/link";
-import { Button } from "@/components/ui/button";
+"use client";
 
-interface NavbarItemProps {
-  href: string;
-  text: string;
-}
+import { useAuthUser } from "@/features/User/hooks/useAuthUser";
+import { NavbarLoginButton } from "@/features/Header/components/Navbar/NavbarLoginButton";
+import { NavbarDashboardButton } from "@/features/Header/components/Navbar/NavbarDashboardButton";
 
-export function NavbarItem({ href, text }: NavbarItemProps) {
-  return (
-    <NextLink href={href}>
-      <Button>{text}</Button>
-    </NextLink>
-  );
+export function NavbarItem() {
+  const { isUserAuthenticated } = useAuthUser();
+
+  if (isUserAuthenticated) {
+    return <NavbarDashboardButton />;
+  }
+
+  return <NavbarLoginButton />;
 }

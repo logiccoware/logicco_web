@@ -13,7 +13,3 @@ export interface PropsWithClassName {
 export type PropsWithChildrenAndClassName<T> = PropsWithChildren<
   T & PropsWithClassName
 >;
-
-export interface User {
-  name: string;
-}
