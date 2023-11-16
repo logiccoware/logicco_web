@@ -1,15 +1,19 @@
 "use client";
 
 import { useAuthUser } from "@/features/User/hooks/useAuthUser";
-import { NavbarLoginButton } from "@/features/Header/components/Navbar/NavbarLoginButton";
-import { NavbarDashboardButton } from "@/features/Header/components/Navbar/NavbarDashboardButton";
+import { HOME_ROUTE, LOGIN_ROUTE } from "@/domain/routes";
+import { Button } from "@/components/ui/button";
+import { UserCircle } from "lucide-react";
+import NextLink from "next/link";
 
 export function NavbarItem() {
-  const { isUserAuthenticated } = useAuthUser();
+  const { isAuthenticated } = useAuthUser();
 
-  if (isUserAuthenticated) {
-    return <NavbarDashboardButton />;
-  }
-
-  return <NavbarLoginButton />;
+  return (
+    <Button variant="outline" size="icon" asChild>
+      <NextLink href={isAuthenticated ? HOME_ROUTE : LOGIN_ROUTE}>
+        <UserCircle size={24} />
+      </NextLink>
+    </Button>
+  );
 }

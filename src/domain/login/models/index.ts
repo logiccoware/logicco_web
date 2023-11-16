@@ -2,6 +2,8 @@ import * as io from "io-ts";
 
 export const EmailSessionLoginResponseModel = io.type({
   user: io.type({
+    id: io.string,
+    email: io.string,
     isEmailVerified: io.boolean,
   }),
   cookieOptions: io.type({

@@ -1,7 +1,6 @@
 import { NavbarBrand } from "@/features/Header/components/Navbar/NavbarBrand";
 import { NavbarDrawer } from "@/features/Header/components/Navbar/NavbarDrawer";
 import { PropsWithChildren } from "react";
-import type { NavbarLink } from "@/features/Header/types";
 import { NavbarDrawerItems } from "@/features/Header/components/Navbar/NavbarDrawerItems";
 import { NavbarDrawerToggleProvider } from "../../store/NavbarDrawerToggleProvider";
 import { stringResources } from "@/stringResources";

@@ -1,10 +1,12 @@
 import { FirebaseAuthService } from "@/domain/firebase/services/FirebaseAuthService";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { EmailLoginPayload } from "@/domain/login/types";
+import { ApiService } from "@/domain/api/services/ApiService";
 
 export class LoginService {
   constructor(
-    private readonly firebaseService: FirebaseAuthService
+    private readonly firebaseService: FirebaseAuthService,
+    private readonly apiNextService: ApiService,
   ) {}
 
   async emailLogin({ email, password }: EmailLoginPayload): Promise<void> {
@@ -19,7 +21,17 @@ export class LoginService {
 
       const idToken = await firebaseLoginRes.user.getIdToken();
 
-      console.log(idToken);
+      const res = await this.apiNextService.request({
+        endpoint: "/auth/login/api",
+        method: "POST",
+        body: { idToken },
+      });
+
+      const resData = await res.json();
+
+      if (!res.ok) {
+        return Promise.reject(resData);
+      }
 
     } catch (error) {
       return Promise.reject(error);

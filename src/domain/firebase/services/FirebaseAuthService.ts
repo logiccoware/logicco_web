@@ -15,7 +15,7 @@ export class FirebaseAuthService {
     const user = await this.getCurrentUser();
 
     if (!user) {
-      return;
+      return "";
     }
 
     const idToken = await user.getIdToken();

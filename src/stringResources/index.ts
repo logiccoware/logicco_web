@@ -1,7 +1,7 @@
 const signupInvitePage = {
   form: {
     title: "Lets finish setting up your account",
-    submitButtonText: 'Sign Up',
+    submitButtonText: "Sign Up",
     validation: {
       displayName: {
         required: "Display name is required",
@@ -43,27 +43,29 @@ const loginPage = {
   },
 };
 
+const payeePage = {
+  title: "Create Payee",
+  modal: {
+    title: {
+      create: "Create Payee",
+      update: "Update Payee",
+    },
+    form: {
+      name: {
+        label: "Name",
+        placeholder: "Enter name",
+      },
+    },
+    deleteConfirmMessage: "Are you sure you want to delete this payee?",
+  },
+};
+
 export const stringResources = {
   app: {
     title: "Tilakex",
   },
   logoutPage: {
     message: "Logging out...",
-  },
-  payeePage: {
-    modal: {
-      title: {
-        create: "Create Payee",
-        update: "Update Payee",
-      },
-      form: {
-        name: {
-          label: "Name",
-          placeholder: "Enter name",
-        },
-      },
-      deleteConfirmMessage: "Are you sure you want to delete this payee?",
-    },
   },
   crudModal: {
     button: {
@@ -78,7 +80,8 @@ export const stringResources = {
       "Something went wrong when logging out, Please try again later",
     buttonText: "Logout",
   },
-  
+
   signupInvitePage,
   loginPage,
+  payeePage,
 };
