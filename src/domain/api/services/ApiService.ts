@@ -30,7 +30,7 @@ export class ApiService {
     });
   }
 
-  async withFirebaseIdToken(options: ApiFetchOptions) {
+  async authenticated(options: ApiFetchOptions) {
     return this.apiFetch({
       ...options,
       headers: {

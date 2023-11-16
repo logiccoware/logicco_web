@@ -1,13 +1,13 @@
 "use client";
 
-import { HOME_ROUTE, INVITE_ROUTE } from "@/domain/routes";
+import { HOME_ROUTE, INVITE_ROUTE, PAYEES_ROUTE } from "@/domain/routes";
 import { NavbarLink } from "@/features/Header/types";
 import { Info, Mail } from "lucide-react";
 
 export const NAVBAR_DRAWER_AUTH_LINKS: NavbarLink[] = [
   {
     label: "Payees",
-    href: HOME_ROUTE,
+    href: PAYEES_ROUTE,
   },
 ];
 

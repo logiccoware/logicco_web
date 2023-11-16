@@ -14,11 +14,7 @@ export function EmailLoginForm() {
     <form onSubmit={handleSubmit(onSubmitForm)}>
       <FormField label="Display name" name="displayName" className="my-2">
         <Input {...register("email")} type="email" placeholder="Your email" />
-        <FormFieldError
-          className="my-2"
-          hasIcon
-          message={errors.email?.message}
-        />
+        <FormFieldError className="my-2" hasIcon />
       </FormField>
       <FormField label="Password" name="password" className="my-2">
         <Input
@@ -30,7 +26,7 @@ export function EmailLoginForm() {
         <FormFieldError
           className="my-2"
           hasIcon
-          message={errors.password?.message}
+          // message={errors.password?.message}
         />
       </FormField>
       <div className="my-4">

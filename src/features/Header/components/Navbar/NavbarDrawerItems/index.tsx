@@ -8,10 +8,11 @@ import { useMemo } from "react";
 import { NavbarLogoutButton } from "@/features/Header/components/Navbar/NavbarLogoutButton";
 
 export function NavbarDrawerItems({ className }: WithClassName) {
-  const { isUserAuthenticated } = useAuthUser();
+  const { isAuthenticated } = useAuthUser();
+
   const drawerItems = useMemo(
-    () => getDrawerItem(isUserAuthenticated),
-    [isUserAuthenticated]
+    () => getDrawerItem(isAuthenticated),
+    [isAuthenticated]
   );
   return (
     <div className={className}>
@@ -19,7 +20,7 @@ export function NavbarDrawerItems({ className }: WithClassName) {
         <NavbarDrawerItem key={href} href={href} label={label} Icon={Icon} />
       ))}
 
-      {isUserAuthenticated ? (
+      {isAuthenticated ? (
         <div>
           <NavbarLogoutButton />
         </div>

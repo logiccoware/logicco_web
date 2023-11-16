@@ -1,22 +1,16 @@
-import { AuthUser } from "@/domain/user/models";
-import { AuthUserContext } from "@/features/User/components/AuthUserProvider";
+import { useContext } from "react";
+import UserContext from "@/features/User/components/AuthUserContext";
 
-export function useAuthUser() {
-  const authUserActorRef = AuthUserContext.useActorRef();
-  const user = AuthUserContext.useSelector((state) => state.context.user);
-  const isLoading = AuthUserContext.useSelector(
-    (state) => state.context.isLoading
-  );
-  const isUserAuthenticated = Boolean(user && user.email);
-
-  function handleSetAuthUser(user?: AuthUser) {
-    authUserActorRef.send({ type: "auth.setUser", user });
-  }
-
-  return {
-    handleSetAuthUser,
-    user,
-    isUserAuthenticated,
-    isLoading,
+// Hook to use the user context
+export const useAuthUser = () => {
+    const context = useContext(UserContext);
+    const { user } = context;
+    const isAuthenticated = Boolean(user);
+    if (!context) {
+      throw new Error('useUser must be used within a UserProvider');
+    }
+    return {
+      user,
+      isAuthenticated,
+    };
   };
-}

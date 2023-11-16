@@ -12,6 +12,7 @@ interface EmailLoginMutationVariables {
   payload: EmailLoginPayload;
 }
 
+
 export function useEmailLoginForm() {
   const { replace } = useRouter();
   const { toast } = useToast();
@@ -31,15 +32,15 @@ export function useEmailLoginForm() {
   });
 
   function handleEmailLoginSuccess() {
-    replace('/');
+    replace("/");
   }
 
   function handleEmailLoginFailure(error: unknown) {
     toast({
       title: "Error",
       description: "Could not login with those credentials.",
-      variant: 'destructive'
-    })
+      variant: "destructive",
+    });
   }
 
   function onSubmitForm({ email, password }: EmailLoginForm) {

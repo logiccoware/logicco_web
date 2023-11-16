@@ -1,14 +1,16 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useLogout } from "@/features/User/hooks/useLogout";
+import NextLink from "next/link";
 import { LogOut } from "lucide-react";
+import { LOGOUT_ROUTE } from "@/domain/routes";
 
 export function NavbarLogoutButton() {
-  const { handleLogout } = useLogout();
   return (
-    <Button onClick={handleLogout} variant="outline">
-      <LogOut size={24} /> Logout
-    </Button>
+    <NextLink href={LOGOUT_ROUTE}>
+      <Button variant="outline">
+        <LogOut size={24} /> Logout
+      </Button>
+    </NextLink>
   );
 }
