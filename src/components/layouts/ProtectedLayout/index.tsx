@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { AppShell } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
@@ -24,7 +24,7 @@ export function ProtectedLayout({ children }: PropsWithChildren) {
       </AppShell.Header>
 
       <AppShell.Navbar>
-        <AppNavbar />
+        <AppNavbar toggleSideBar={toggle} />
       </AppShell.Navbar>
 
       <AppShell.Main>{children}</AppShell.Main>

@@ -1,27 +1,26 @@
 "use client";
 
-import { useUser } from "@auth0/nextjs-auth0";
-import { Button } from "@mantine/core";
+import { Button, Skeleton } from "@mantine/core";
 import NextLink from "next/link";
+import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut } from "@clerk/nextjs";
+import { LoginButton } from "@/components/ui/Buttons/LoginButton";
 
 export function AuthStatusLink() {
-  const { user, isLoading } = useUser();
-
-  if (isLoading) {
-    return null;
-  }
-
-  if (user) {
-    return (
-      <Button component={NextLink} href="/app">
-        App
-      </Button>
-    );
-  }
-
   return (
-    <a href="/auth/login">
-      <Button>Sign In</Button>
-    </a>
+    <>
+      <ClerkLoading>
+        <Skeleton height={32} width={32} visible animate />
+      </ClerkLoading>
+      <ClerkLoaded>
+        <SignedOut>
+          <LoginButton />
+        </SignedOut>
+        <SignedIn>
+          <Button component={NextLink} href="/app">
+            App
+          </Button>
+        </SignedIn>
+      </ClerkLoaded>
+    </>
   );
 }
