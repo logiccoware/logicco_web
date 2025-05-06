@@ -4,11 +4,15 @@ import { NavbarLinks } from "@/components/layouts/ProtectedLayout/AppNavbar/Navb
 import NextLink from "next/link";
 import { LogoutButton } from "@/components/ui/Buttons/LogoutButton";
 
-export function AppNavbar() {
+interface IProps {
+  toggleSideBar: () => void;
+}
+
+export function AppNavbar({ toggleSideBar }: IProps) {
   return (
     <nav className={classes.navbar}>
       <div className={classes.navbarMain}>
-        <NavbarLinks />
+        <NavbarLinks toggleSideBar={toggleSideBar}/>
       </div>
       <div className={classes.footer}>
         <NextLink

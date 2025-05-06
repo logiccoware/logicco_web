@@ -1,23 +1,32 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Text, Stack, Box } from "@mantine/core";
+import { Text, Stack, Box, Skeleton, Center } from "@mantine/core";
+import { ClerkLoaded, ClerkLoading, useUser } from "@clerk/nextjs";
 
 export function ComingSoonSection() {
   const t = useTranslations("Common");
-  // const { } = useUser
+  const { user } = useUser();
 
   return (
     <Box mt="xl">
-      <Stack ta="center">
-        <Text size="xl">
-          Wecome{" "}
-          <Box component="span" fw={700}>
-            test@email.com
-          </Box>
-        </Text>
-        <Text size="lg">App is {t("comingSoon")}</Text>
-      </Stack>
+      <Center>
+        <Stack ta="center">
+          <ClerkLoading>
+            <Skeleton height={32} width={320} visible animate />
+          </ClerkLoading>
+          <ClerkLoaded>
+            <Text size="xl">
+              Wecome{" "}
+              <Box component="span" fw={700}>
+                {user?.primaryEmailAddress?.emailAddress ?? ""}
+              </Box>
+            </Text>
+          </ClerkLoaded>
+
+          <Text size="lg">App is {t("comingSoon")}</Text>
+        </Stack>
+      </Center>
     </Box>
   );
 }

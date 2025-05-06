@@ -7,22 +7,22 @@ import {
 
 export const NAVBAR_LINKS = [
   {
-    link: "/",
+    link: "/app",
     label: "Accounts",
     icon: IconBuildingBank,
   },
   {
-    link: "/",
+    link: "/app",
     label: "Payees",
     icon: IconUserSquareRounded,
   },
   {
-    link: "/",
+    link: "/app",
     label: "Categories",
     icon: IconCategory,
   },
   {
-    link: "/",
+    link: "/app",
     label: "Transactions",
     icon: IconListDetails,
   },
