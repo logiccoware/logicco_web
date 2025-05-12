@@ -1,5 +1,7 @@
-import { AppLogo } from "@/components/ui/AppLogo";
+'use client";';
+
 import { Burger, Group } from "@mantine/core";
+import { HeaderMenu } from "@/components/layouts/ProtectedLayout/AppHeader/HeaderMenu";
 
 interface IProps {
   opened: boolean;
@@ -8,9 +10,9 @@ interface IProps {
 
 export function AppHeader({ opened, toggle }: IProps) {
   return (
-    <Group h="100%">
+    <Group ml='sm' h="100%">
       <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-      <AppLogo size={48} />
+      <HeaderMenu />
     </Group>
   );
 }
