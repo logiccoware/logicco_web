@@ -8,22 +8,22 @@ import {
 export const NAVBAR_LINKS = [
   {
     link: "/app",
-    label: "Accounts",
+    i18Label: "Common.protectedLayout.navbars.links.accounts",
     icon: IconBuildingBank,
   },
   {
     link: "/app",
-    label: "Payees",
+    i18Label: "Common.protectedLayout.navbars.links.payees",
     icon: IconUserSquareRounded,
   },
   {
     link: "/app",
-    label: "Categories",
+    i18Label: "Common.protectedLayout.navbars.links.categories",
     icon: IconCategory,
   },
   {
     link: "/app",
-    label: "Transactions",
+    i18Label: "Common.protectedLayout.navbars.links.transactions",
     icon: IconListDetails,
   },
 ];

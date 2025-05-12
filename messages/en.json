@@ -1,9 +1,34 @@
 {
   "Common": {
-    "comingSoon": "Coming Soon"
+    "comingSoon": "Coming Soon",
+    "publicLayout": {
+      "header": {
+        "links": {
+          "signIn": "Sign In"
+        }
+      }
+    },
+    "protectedLayout": {
+      "navbars": {
+        "links": {
+          "accounts": "Accounts",
+          "payees": "Payees",
+          "transactions": "Transactions",
+          "categories": "categories"
+        }
+      },
+      "headerMenu": {
+        "dropdowns": {
+          "applicationLabel": "Application",
+          "account": "Account Settings",
+          "logout": "Logout"
+        }
+      }
+    }
   },
-  "Home": {
-    "hero": {}
+  "App": {
+    "welcomeMessage": "Welcome, "
   },
+  "Home": {},
   "Payees": {}
 }

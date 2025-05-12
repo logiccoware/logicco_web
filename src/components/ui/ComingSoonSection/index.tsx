@@ -5,7 +5,7 @@ import { Text, Stack, Box, Skeleton, Center } from "@mantine/core";
 import { ClerkLoaded, ClerkLoading, useUser } from "@clerk/nextjs";
 
 export function ComingSoonSection() {
-  const t = useTranslations("Common");
+  const t = useTranslations();
   const { user } = useUser();
 
   return (
@@ -17,14 +17,14 @@ export function ComingSoonSection() {
           </ClerkLoading>
           <ClerkLoaded>
             <Text size="xl">
-              Wecome{" "}
+              {t("App.welcomeMessage")}
               <Box component="span" fw={700}>
                 {user?.primaryEmailAddress?.emailAddress ?? ""}
               </Box>
             </Text>
           </ClerkLoaded>
 
-          <Text size="lg">App is {t("comingSoon")}</Text>
+          <Text size="lg">App is {t("Common.comingSoon")}</Text>
         </Stack>
       </Center>
     </Box>
