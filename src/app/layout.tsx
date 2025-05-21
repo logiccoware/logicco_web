@@ -1,4 +1,5 @@
 import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
 
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -10,6 +11,11 @@ import {
 import { getLocale } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { ClerkProvider } from "@clerk/nextjs";
+import { ModalsProvider } from "@mantine/modals";
+import { PayeeCreateModal } from "@/features/payees/components/Modals/PayeeCreateModal";
+import { PayeeUpdateModal } from "@/features/payees/components/Modals/PayeeUpdateModal";
+import { PayeeDeleteModal } from "@/features/payees/components/Modals/PayeeDeleteModal";
+import { Notifications } from "@mantine/notifications";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,12 +32,25 @@ export const metadata: Metadata = {
   description: "Simplify tracking your expenses",
 };
 
+const modals = {
+  payeeCreateModal: PayeeCreateModal,
+  payeeUpdateModal: PayeeUpdateModal,
+  payeeDeleteModal: PayeeDeleteModal,
+};
+
+declare module "@mantine/modals" {
+  export interface MantineModalsOverride {
+    modals: typeof modals;
+  }
+}
+
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const locale = await getLocale();
+
   return (
     <ClerkProvider>
       <html lang={locale} {...mantineHtmlProps}>
@@ -41,7 +60,10 @@ export default async function RootLayout({
         <body className={`${geistSans.variable} ${geistMono.variable}`}>
           <NextIntlClientProvider locale={locale}>
             <MantineProvider defaultColorScheme="dark">
-              {children}
+              <ModalsProvider modals={modals}>
+                <Notifications />
+                {children}
+              </ModalsProvider>
             </MantineProvider>
           </NextIntlClientProvider>
         </body>
