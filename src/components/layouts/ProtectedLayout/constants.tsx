@@ -12,7 +12,7 @@ export const NAVBAR_LINKS = [
     icon: IconBuildingBank,
   },
   {
-    link: "/app",
+    link: "/app/payees",
     i18Label: "Common.protectedLayout.navbars.links.payees",
     icon: IconUserSquareRounded,
   },
