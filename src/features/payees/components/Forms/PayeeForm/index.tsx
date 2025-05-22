@@ -27,6 +27,7 @@ export function PayeeForm({
         placeholder="Name"
         name="name"
         defaultValue={payee?.name}
+        size="md"
         required
       />
       {payee?.id ? (
