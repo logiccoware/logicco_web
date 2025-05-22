@@ -55,6 +55,10 @@ export default async function RootLayout({
     <ClerkProvider>
       <html lang={locale} {...mantineHtmlProps}>
         <head>
+          <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
+          />
           <ColorSchemeScript defaultColorScheme="dark" />
         </head>
         <body className={`${geistSans.variable} ${geistMono.variable}`}>
