@@ -5,17 +5,16 @@ import { useTranslations } from "next-intl";
 
 interface IProps {
   disabled: boolean;
-  mode: "create" | "update";
   DeleteButton?: React.ReactNode | null;
 }
 
-export function DataActionFooter({ disabled, DeleteButton, mode }: IProps) {
+export function ModalActions({ disabled, DeleteButton }: IProps) {
   const t = useTranslations("Common.forms");
   return (
     <Group justify="flex-end" mt="md">
       {DeleteButton}
       <Button type="submit" disabled={disabled}>
-        {mode === "update" ? t("updateButton") : t("createButton")}
+        {t("saveButton")}
       </Button>
     </Group>
   );

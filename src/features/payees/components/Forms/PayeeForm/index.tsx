@@ -2,7 +2,7 @@
 
 import { TPayeeBase } from "@/features/payees/schema";
 import { TextInput } from "@mantine/core";
-import { DataActionFooter } from "@/components/ui/Modals/DataActionFooter";
+import { ModalActions } from "@/components/ui/Modals/ModalActions";
 
 interface IProps {
   payee?: TPayeeBase;
@@ -33,11 +33,7 @@ export function PayeeForm({
       {payee?.id ? (
         <TextInput type="hidden" name="payeeId" value={payee.id} />
       ) : null}
-      <DataActionFooter
-        mode={payee ? "update" : "create"}
-        disabled={disabled}
-        DeleteButton={DeleteButton}
-      />
+      <ModalActions disabled={disabled} DeleteButton={DeleteButton} />
     </form>
   );
 }

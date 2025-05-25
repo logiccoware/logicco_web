@@ -16,6 +16,9 @@ import { PayeeCreateModal } from "@/features/payees/components/Modals/PayeeCreat
 import { PayeeUpdateModal } from "@/features/payees/components/Modals/PayeeUpdateModal";
 import { PayeeDeleteModal } from "@/features/payees/components/Modals/PayeeDeleteModal";
 import { Notifications } from "@mantine/notifications";
+import { CategoryRootCreateModal } from "@/features/categories/components/Modals/CategoryRootCreateModal";
+import { CategoryLeafCreateModal } from "@/features/categories/components/Modals/CategoryLeafCreateModal";
+import { CategoryUpdateModal } from "@/features/categories/components/Modals/CategoryUpdateModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,6 +39,9 @@ const modals = {
   payeeCreateModal: PayeeCreateModal,
   payeeUpdateModal: PayeeUpdateModal,
   payeeDeleteModal: PayeeDeleteModal,
+  categoryRootCreateModal: CategoryRootCreateModal,
+  categoryLeafCreateModal: CategoryLeafCreateModal,
+  categoryUpdateModal: CategoryUpdateModal,
 };
 
 declare module "@mantine/modals" {
