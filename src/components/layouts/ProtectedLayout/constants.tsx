@@ -17,7 +17,7 @@ export const NAVBAR_LINKS = [
     icon: IconUserSquareRounded,
   },
   {
-    link: "/app",
+    link: "/app/categories",
     i18Label: "Common.protectedLayout.navbars.links.categories",
     icon: IconCategory,
   },
