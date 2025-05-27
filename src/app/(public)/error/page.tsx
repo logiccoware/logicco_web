@@ -1,5 +1,9 @@
-'use client'
+"use client";
+
+import { AppErrorUnknown } from "@/components/errors/AppError/AppErrorUnknown";
+import { useRouter } from "next/navigation";
 
 export default function ErrorPage() {
-  return <p>Sorry, something went wrong</p>
+  const router = useRouter();
+  return <AppErrorUnknown ctaClick={() => router.push("/")} />;
 }

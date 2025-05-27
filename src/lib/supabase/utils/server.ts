@@ -9,7 +9,9 @@ export async function createClient() {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookieOptions: {
-        expires: new Date(Date.now() + 60 * 60 * 24 * 7 * 1000), // 7 days
+        expires: new Date(Date.now() + 60 * 60 * 24 * 7), // 7 days
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
       },
       cookies: {
         getAll() {
