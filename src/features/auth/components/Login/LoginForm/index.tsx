@@ -1,4 +1,7 @@
+"use client";
+
 import { Alert, Button, PasswordInput, Stack, TextInput } from "@mantine/core";
+import { useTranslations } from "next-intl";
 
 interface IProps {
   errorMessage?: string;
@@ -7,27 +10,30 @@ interface IProps {
 }
 
 export function LoginForm({ formAction, errorMessage, disabled }: IProps) {
+  const t = useTranslations("Auth.login.form");
   return (
     <Stack>
       {errorMessage ? <Alert color="red"> {errorMessage} </Alert> : null}
       <form action={formAction}>
         <TextInput
-          label="Email"
-          placeholder="you@mantine.dev"
+          label={t("fields.email.label")}
+          placeholder={t("fields.email.placeholder")}
           required
           radius="md"
+          size="md"
           name="email"
         />
         <PasswordInput
-          label="Password"
-          placeholder="Your password"
+          label={t("fields.password.label")}
+          placeholder={t("fields.password.placeholder")}
           required
           mt="md"
+          size="md"
           radius="md"
           name="password"
         />
-        <Button disabled={disabled} type="submit" fullWidth mt="xl" radius="md">
-          Sign in
+        <Button size="md" disabled={disabled} type="submit" fullWidth mt="xl" radius="md">
+          {t("submitButton")}
         </Button>
       </form>
     </Stack>

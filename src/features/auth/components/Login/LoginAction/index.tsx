@@ -1,10 +1,10 @@
 "use client";
 
-import { loginAction } from "@/app/(public)/login/actions";
+import { loginAction } from "@/features/auth/api/server/actions/loginAction";
 import { useActionState } from "react";
-import { LoginForm } from "../LoginForm";
+import { LoginForm } from "@/features/auth/components/Login/LoginForm";
 import { IFormActionState } from "@/lib/types";
-// import { useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 const initialState: IFormActionState = {
   success: false,
@@ -12,6 +12,8 @@ const initialState: IFormActionState = {
 };
 
 export function LoginAction() {
+  const t = useTranslations("Auth.login.form");
+
   const [state, formAction, pending] = useActionState(
     loginAction,
     initialState
@@ -22,7 +24,7 @@ export function LoginAction() {
       formAction={formAction}
       disabled={pending}
       errorMessage={
-        state.error?.errors?.unknown ? "Something went wrong" : undefined
+        state.error?.errors?.unknown ? t('errorMessage') : undefined
       }
     />
   );
