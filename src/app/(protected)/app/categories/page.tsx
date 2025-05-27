@@ -5,7 +5,7 @@ import { CategoryPageTreeView } from "@/features/categories/components/CategoryP
 import { CategorySelectMachineProvider } from "@/features/categories/store/stateMachines/categorySelectMachine/CategorySelectMachineProvider";
 import { protectAuthRoute } from "@/features/auth/helpers/protectAuthRoute";
 import { getCategoryTreeView } from "@/features/categories/api/server/fetch/getCategoryTreeView";
-import { toTreeViewData } from "@/features/helpers/toTreeViewData";
+import { toTreeViewData } from "@/features/categories/helpers/toTreeViewData";
 
 export const metadata: Metadata = {
   title: "Categories | Logicco",
@@ -16,7 +16,6 @@ export default async function Home() {
   const t = await getTranslations("Categories");
   const data = await getCategoryTreeView();
   const treeNodeData = toTreeViewData(data.categories);
-
   return (
     <Stack gap="md">
       <Group justify="space-between">

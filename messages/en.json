@@ -105,6 +105,69 @@
       "title": "Payees"
     }
   },
+  "Transactions": {
+    "notifications": {
+      "created": "Transaction Created.",
+      "updated": "Transaction Updated.",
+      "deleted": "Transaction Delete."
+    },
+    "modals": {
+      "create": {
+        "title": "Create Transaction"
+      },
+      "update": {
+        "title": "Update Transaction"
+      },
+      "delete": {
+        "title": "Delete Transaction",
+        "message": "Are you sure you want to delete this transaction?"
+      }
+    },
+    "dataList": {
+      "emptyListMessage": "No transaction found.",
+      "title": "Transactions"
+    }
+  },
+  "Accounts": {
+    "form": {
+      "fields": {
+        "name": {
+          "label": "Name",
+          "placeholder": "Enter account name"
+        },
+        "currency": {
+          "label": "Currency",
+          "placeholder": "Select currency"
+        }
+      },
+      "saveButton": "Save"
+    },
+    "notifications": {
+      "created": "Account Created.",
+      "updated": "Account Updated.",
+      "deleted": "Account Delete.",
+      "defaultSelected": "Default account selected."
+    },
+    "modals": {
+      "create": {
+        "title": "Create Account"
+      },
+      "update": {
+        "title": "Update Account"
+      },
+      "delete": {
+        "title": "Delete Account",
+        "message": "Are you sure you want to delete this account? Deleting a account will delete all transactions associated with it."
+      },
+      "defaultSelect": {
+        "title": "Select Default Account"
+      }
+    },
+    "dataList": {
+      "emptyListMessage": "No account found.",
+      "title": "Account"
+    }
+  },
   "Categories": {
     "form": {
       "fields": {

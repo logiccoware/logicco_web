@@ -18,6 +18,9 @@ import { Notifications } from "@mantine/notifications";
 import { CategoryRootCreateModal } from "@/features/categories/components/Modals/CategoryRootCreateModal";
 import { CategoryLeafCreateModal } from "@/features/categories/components/Modals/CategoryLeafCreateModal";
 import { CategoryUpdateModal } from "@/features/categories/components/Modals/CategoryUpdateModal";
+import { AccountCreateModal } from "@/features/accounts/components/Modals/AccountCreateModal";
+import { AccountUpdateModal } from "@/features/accounts/components/Modals/AccountUpdateModal";
+import { AccountDeleteModal } from "@/features/accounts/components/Modals/AccountDeleteModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,6 +44,9 @@ const modals = {
   categoryRootCreateModal: CategoryRootCreateModal,
   categoryLeafCreateModal: CategoryLeafCreateModal,
   categoryUpdateModal: CategoryUpdateModal,
+  accountCreateModal: AccountCreateModal,
+  accountUpdateModal: AccountUpdateModal,
+  accountDeleteModal: AccountDeleteModal,
 };
 
 declare module "@mantine/modals" {

@@ -7,7 +7,7 @@ import {
 
 export const NAVBAR_LINKS = [
   {
-    link: "/app",
+    link: "/app/accounts",
     i18Label: "Common.protectedLayout.navbars.links.accounts",
     icon: IconBuildingBank,
   },
@@ -22,7 +22,7 @@ export const NAVBAR_LINKS = [
     icon: IconCategory,
   },
   {
-    link: "/app",
+    link: "/app/transactions",
     i18Label: "Common.protectedLayout.navbars.links.transactions",
     icon: IconListDetails,
   },

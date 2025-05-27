@@ -30,6 +30,7 @@ export function DataList<T>({ list, onItemClick }: IProps<T>) {
                 </Text>
               ) : null}
             </Stack>
+             {item.rightIcon}
           </Group>
         </Paper>
       ))}
