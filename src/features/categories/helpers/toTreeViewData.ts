@@ -1,5 +1,5 @@
 import { TreeNodeData } from "@mantine/core";
-import { TCategoryTree } from "@/features/categories/api/server/fetch/getCategoriesTreeView";
+import { TCategoryTree } from "@/features/categories/api/schema";
 
 export function toTreeViewData(categories: TCategoryTree[]): TreeNodeData[] {
   return categories.map((category) => ({
