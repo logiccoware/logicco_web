@@ -1,29 +1,28 @@
-import { protectedRoute } from "@/lib/server/helpers/protectedRoute";
 import type { Metadata } from "next";
-import { toPayeeDataList } from "@/features/payees/helpers/toPayeeDataList";
 import { PayeeDataList } from "@/features/payees/components/PayeeDataList";
-import { getPayeesList } from "@/features/payees/api/server/fetch/getPayeesList";
 import { Group, Stack, Title } from "@mantine/core";
 import { PayeeCreateButton } from "@/features/payees/components/PayeeDataList/PayeeCreateButton";
 import { getTranslations } from "next-intl/server";
+import { protectAuthRoute } from "@/features/auth/helpers/protectAuthRoute";
+import { getPayeesList } from "@/features/payees/api/server/fetch/getPayeesList";
+import { toPayeeDataList } from "@/features/payees/helpers/toPayeeDataList";
 
 export const metadata: Metadata = {
   title: "Payees | Logicco",
 };
 
-export default async function Home() {
-  const { accessToken } = await protectedRoute();
-  const { payees } = await getPayeesList(accessToken);
-  const payeeDataList = toPayeeDataList(payees);
-
+export default async function PayeesPage() {
+  await protectAuthRoute();
   const t = await getTranslations("Payees");
+  const { payees } = await getPayeesList();
+  const payeesDataList = toPayeeDataList(payees);
   return (
     <Stack gap="md">
       <Group justify="space-between">
         <Title order={4}>{t("dataList.title")}</Title>
         <PayeeCreateButton />
       </Group>
-      <PayeeDataList list={payeeDataList} />
+      <PayeeDataList list={payeesDataList} />
     </Stack>
   );
 }

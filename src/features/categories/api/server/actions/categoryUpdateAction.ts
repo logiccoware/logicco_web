@@ -1,42 +1,52 @@
 "use server";
 
-import { getApiPath } from "@/lib/api/helpers/getApiPath";
-import { getAuthHeader, getBaseHeaders } from "@/lib/api/helpers/headers";
 import { IFormActionState } from "@/lib/types";
 import { revalidatePath } from "next/cache";
 import {
+  formActionGenericError,
   formActionSuccess,
-  formActionValidationError,
+  formsActionValidationError,
 } from "@/lib/api/helpers/formAction";
-import { getAccessTokenOrFail } from "@/lib/api/server/helpers/getAccessToken";
+import { UserNotFound } from "@/features/auth/exceptions/UserNotFound";
+import { createClient } from "@/lib/supabase/utils/server";
+import { CategoyFormFieldsSchema } from "@/features/categories/api/schema";
 
 export default async function categoryUpdateAction(
   prevState: unknown,
   formData: FormData
 ): Promise<IFormActionState> {
-  const accessToken = await getAccessTokenOrFail();
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
 
-  const rootCategoryId = formData.get("categoryId") as string;
+  if (userError) {
+    throw new UserNotFound();
+  }
 
-  const fields = {
+  const categoryId = formData.get("categoryId") as string;
+
+  const validatedFields = CategoyFormFieldsSchema.safeParse({
     name: formData.get("name"),
-  };
+  });
 
-  const res = await fetch(
-    getApiPath(`/categories/${rootCategoryId}`),
-    {
-      method: "PUT",
-      headers: {
-        ...getBaseHeaders(),
-        ...getAuthHeader(accessToken),
-      },
-      body: JSON.stringify(fields),
-    }
-  );
+  if (validatedFields.error) {
+    return formsActionValidationError(
+      validatedFields.error.flatten().fieldErrors
+    );
+  }
 
-  if (!res.ok) {
-    const resBody: unknown = await res.json();
-    return formActionValidationError(resBody);
+  const { error } = await supabase
+    .from("categories")
+    .update({ ...validatedFields.data, user_id: user?.id })
+    .eq("id", categoryId)
+    .eq("user_id", user?.id)
+    .select();
+
+  if (error) {
+    console.error(error);
+    return formActionGenericError();
   }
 
   revalidatePath("app/categories");

@@ -1,37 +1,40 @@
 "use server";
 
-import { getApiPath } from "@/lib/api/helpers/getApiPath";
-import { getAuthHeader, getBaseHeaders } from "@/lib/api/helpers/headers";
 import { IFormActionState } from "@/lib/types";
 import { revalidatePath } from "next/cache";
-import { getAccessTokenOrFail } from "@/lib/api/server/helpers/getAccessToken";
 import {
+  formActionGenericError,
   formActionSuccess,
-  formActionValidationError,
 } from "@/lib/api/helpers/formAction";
+import { UserNotFound } from "@/features/auth/exceptions/UserNotFound";
+import { createClient } from "@/lib/supabase/utils/server";
 
 export default async function payeeDeleteAction(
   prevState: unknown,
   formData: FormData
 ): Promise<IFormActionState> {
-  const accessToken = await getAccessTokenOrFail();
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError) {
+    throw new UserNotFound();
+  }
 
   const payeeId = formData.get("entityId") as string;
 
-  const res = await fetch(getApiPath(`/payees/${payeeId}`), {
-    method: "DELETE",
-    headers: {
-      ...getBaseHeaders(),
-      ...getAuthHeader(accessToken),
-    },
-  });
+  const { error } = await supabase
+    .from("payees")
+    .delete()
+    .eq("id", payeeId)
+    .eq("user_id", user?.id)
+    .select();
 
-  if (!res.ok) {
-    const resBody: unknown = await res.json();
-    if (res.status === 400) {
-      return formActionValidationError(resBody);
-    }
-    throw new Error("An unknown error occurred");
+  if (error) {
+    console.error(error);
+    return formActionGenericError();
   }
 
   revalidatePath("app/payees");
