@@ -9,15 +9,10 @@ export default async function LoginPage() {
   const supabase = await createClient();
   const {
     data: { user },
-    error,
   } = await supabase.auth.getUser();
 
   if (user) {
     redirect("/app");
-  }
-
-  if (error) {
-    throw new Error(`UserResponseError: ${error.message}`);
   }
 
   const t = await getTranslations("Auth.login.page");
