@@ -1,42 +1,40 @@
 "use server";
 
-import { getApiPath } from "@/lib/api/helpers/getApiPath";
-import { getAuthHeader, getBaseHeaders } from "@/lib/api/helpers/headers";
 import { IFormActionState } from "@/lib/types";
 import { revalidatePath } from "next/cache";
 import {
+  formActionGenericError,
   formActionSuccess,
-  formActionValidationError,
 } from "@/lib/api/helpers/formAction";
-import { getAccessTokenOrFail } from "@/lib/api/server/helpers/getAccessToken";
+import { UserNotFound } from "@/features/auth/exceptions/UserNotFound";
+import { createClient } from "@/lib/supabase/utils/server";
 
 export default async function categoryDeleteAction(
   prevState: unknown,
   formData: FormData
 ): Promise<IFormActionState> {
-  const accessToken = await getAccessTokenOrFail();
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError) {
+    throw new UserNotFound();
+  }
 
   const categoryId = formData.get("entityId") as string;
 
-  const fields = {
-    name: formData.get("name"),
-  };
+  const { error } = await supabase
+    .from("categories")
+    .delete()
+    .eq("id", categoryId)
+    .eq("user_id", user?.id)
+    .select();
 
-  const res = await fetch(
-    getApiPath(`/categories/${categoryId}`),
-    {
-      method: "DELETE",
-      headers: {
-        ...getBaseHeaders(),
-        ...getAuthHeader(accessToken),
-      },
-      body: JSON.stringify(fields),
-    }
-  );
-
-  if (!res.ok) {
-    const resBody: unknown = await res.json();
-    return formActionValidationError(resBody);
+  if (error) {
+    console.error(error);
+    return formActionGenericError();
   }
 
   revalidatePath("app/categories");

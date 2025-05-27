@@ -1,15 +1,13 @@
 "use client";
 
 import { Button } from "@mantine/core";
-import { useClerk } from "@clerk/nextjs";
 import { useTranslations } from "next-intl";
+// import { useRouter } from "next/router";
 
 export function LoginButton() {
   const t = useTranslations("Common");
-  const { redirectToSignIn } = useClerk();
+  // const router = useRouter();
   return (
-    <Button onClick={() => redirectToSignIn()}>
-      {t("publicLayout.header.links.signIn")}
-    </Button>
+    <Button onClick={() => {}}>{t("publicLayout.header.links.signIn")}</Button>
   );
 }

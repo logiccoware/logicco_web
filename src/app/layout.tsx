@@ -10,7 +10,6 @@ import {
 } from "@mantine/core";
 import { getLocale } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
-import { ClerkProvider } from "@clerk/nextjs";
 import { ModalsProvider } from "@mantine/modals";
 import { PayeeCreateModal } from "@/features/payees/components/Modals/PayeeCreateModal";
 import { PayeeUpdateModal } from "@/features/payees/components/Modals/PayeeUpdateModal";
@@ -58,26 +57,24 @@ export default async function RootLayout({
   const locale = await getLocale();
 
   return (
-    <ClerkProvider>
-      <html lang={locale} {...mantineHtmlProps}>
-        <head>
-          <meta
-            name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
-          />
-          <ColorSchemeScript defaultColorScheme="dark" />
-        </head>
-        <body className={`${geistSans.variable} ${geistMono.variable}`}>
-          <NextIntlClientProvider locale={locale}>
-            <MantineProvider defaultColorScheme="dark">
-              <ModalsProvider modals={modals}>
-                <Notifications />
-                {children}
-              </ModalsProvider>
-            </MantineProvider>
-          </NextIntlClientProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang={locale} {...mantineHtmlProps}>
+      <head>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
+        />
+        <ColorSchemeScript defaultColorScheme="dark" />
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <NextIntlClientProvider locale={locale}>
+          <MantineProvider defaultColorScheme="dark">
+            <ModalsProvider modals={modals}>
+              <Notifications />
+              {children}
+            </ModalsProvider>
+          </MantineProvider>
+        </NextIntlClientProvider>
+      </body>
+    </html>
   );
 }

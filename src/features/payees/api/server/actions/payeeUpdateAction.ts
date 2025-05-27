@@ -1,48 +1,52 @@
 "use server";
 
-import { getApiPath } from "@/lib/api/helpers/getApiPath";
-import { getAuthHeader, getBaseHeaders } from "@/lib/api/helpers/headers";
-import { auth } from "@clerk/nextjs/server";
 import { IFormActionState } from "@/lib/types";
 import { revalidatePath } from "next/cache";
 import {
+  formActionGenericError,
   formActionSuccess,
-  formActionValidationError,
+  formsActionValidationError,
 } from "@/lib/api/helpers/formAction";
-import { UnknowApiError } from "@/lib/api/exceptions/UnknowApiError";
+import { UserNotFound } from "@/features/auth/exceptions/UserNotFound";
+import { createClient } from "@/lib/supabase/utils/server";
+import { PayeeFormFieldsSchema } from "@/features/payees/schema";
 
 export default async function payeeUpdateAction(
   prevState: unknown,
   formData: FormData
 ): Promise<IFormActionState> {
-  const { getToken } = await auth();
-  const accessToken = await getToken();
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
 
-  if (!accessToken) {
-    throw new Error("No access token found");
+  if (userError) {
+    throw new UserNotFound();
   }
 
   const payeeId = formData.get("payeeId") as string;
 
-  const payload = {
+  const validatedFields = PayeeFormFieldsSchema.safeParse({
     name: formData.get("name"),
-  };
-
-  const res = await fetch(getApiPath(`/payees/${payeeId}`), {
-    method: "PUT",
-    headers: {
-      ...getBaseHeaders(),
-      ...getAuthHeader(accessToken),
-    },
-    body: JSON.stringify(payload),
   });
 
-  if (!res.ok) {
-    const resBody: unknown = await res.json();
-    if (res.status === 400) {
-      return formActionValidationError(resBody);
-    }
-    throw new UnknowApiError();
+  if (validatedFields.error) {
+    return formsActionValidationError(
+      validatedFields.error.flatten().fieldErrors
+    );
+  }
+
+  const { error } = await supabase
+    .from("payees")
+    .update({ ...validatedFields.data, user_id: user?.id })
+    .eq("id", payeeId)
+    .eq("user_id", user?.id)
+    .select();
+
+  if (error) {
+    console.error(error);
+    return formActionGenericError();
   }
 
   revalidatePath("app/payees");
