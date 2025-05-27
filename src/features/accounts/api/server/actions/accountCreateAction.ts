@@ -3,15 +3,16 @@
 import { IFormActionState } from "@/lib/types";
 import { revalidatePath } from "next/cache";
 import {
-  formActionGenericError,
   formActionSuccess,
+  formActionGenericError,
   formActionValidationError,
 } from "@/lib/api/helpers/formAction";
 import { createClient } from "@/lib/supabase/utils/server";
+import { AccountFormFieldsSchema } from "@/features/accounts/schema";
 import { UserNotFound } from "@/features/auth/exceptions/UserNotFound";
-import { CategoyFormFieldsSchema } from "@/features/categories/api/schema";
+import { setAccountDefaultSelectedCookie } from "@/features/accounts/helpers/server/setAccountDefaultSelectedCookie";
 
-export default async function categoryLeafCreateAction(
+export default async function createAccountAction(
   prevState: unknown,
   formData: FormData
 ): Promise<IFormActionState> {
@@ -25,8 +26,11 @@ export default async function categoryLeafCreateAction(
     throw new UserNotFound();
   }
 
-  const validatedFields = CategoyFormFieldsSchema.safeParse({
+  const markAsDefault = formData.get("markAsDefault") === "on";
+
+  const validatedFields = AccountFormFieldsSchema.safeParse({
     name: formData.get("name"),
+    currency: formData.get("currency"),
   });
 
   if (validatedFields.error) {
@@ -35,14 +39,11 @@ export default async function categoryLeafCreateAction(
     );
   }
 
-  const rootCategoryId = formData.get("categoryId") as string;
-
-  const { error } = await supabase
-    .from("categories")
+  const { error, data } = await supabase
+    .from("accounts")
     .insert([
       {
         ...validatedFields.data,
-        parent_id: rootCategoryId,
         user_id: user?.id,
       },
     ])
@@ -53,7 +54,11 @@ export default async function categoryLeafCreateAction(
     return formActionGenericError();
   }
 
-  revalidatePath("app/categories");
+  if (markAsDefault) {
+    setAccountDefaultSelectedCookie(data[0] ?? null);
+  }
+
+  revalidatePath("app/accounts");
 
   return formActionSuccess();
 }

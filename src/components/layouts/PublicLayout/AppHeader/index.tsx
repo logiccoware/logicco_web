@@ -47,7 +47,7 @@ export function AppHeader() {
         <ScrollArea h="calc(100vh - 80px" mx="-md">
           <Divider my="sm" />
           <Group justify="center" grow pb="xl" px="md">
-            <AuthStatusLink />
+            <AuthStatusLink closeDrawer={closeDrawer}/>
           </Group>
         </ScrollArea>
       </Drawer>

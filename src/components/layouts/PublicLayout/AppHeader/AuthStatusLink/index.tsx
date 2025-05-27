@@ -1,13 +1,17 @@
-'use client';
+"use client";
 
 import { Button } from "@mantine/core";
 import { useTranslations } from "next-intl";
 import NextLink from "next/link";
 
-export function AuthStatusLink() {
+interface IProps {
+  closeDrawer?: () => void;
+}
+
+export function AuthStatusLink({ closeDrawer }: IProps) {
   const t = useTranslations("Common");
   return (
-    <Button component={NextLink} href="/app">
+    <Button onClick={closeDrawer} component={NextLink} href="/app">
       {t("publicLayout.header.links.app")}
     </Button>
   );
