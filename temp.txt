@@ -1,0 +1,35 @@
+create table public.payees (
+  id uuid not null default gen_random_uuid (),
+  name text not null,
+  created_at timestamp with time zone not null default now(),
+  user_id uuid not null default gen_random_uuid (),
+  constraint payees_pkey primary key (id),
+  constraint payees_user_id_fkey foreign KEY (user_id) references auth.users (id) on delete CASCADE
+) TABLESPACE pg_default;
+
+ALTER TABLE public.payees ENABLE ROW LEVEL SECURITY;
+
+ALTER POLICY "Payee Access Policy"
+ON "public"."payees"
+TO authenticated
+USING (auth.uid() = user_id)
+WITH CHECK (auth.uid() = user_id);
+
+
+create table public.categories (
+  id uuid not null default gen_random_uuid (),
+  name text not null,
+  created_at timestamp with time zone not null default now(),
+  parent_id uuid null,
+  user_id uuid not null,
+  constraint categories_pkey primary key (id),
+  constraint categories_parent_id_fkey foreign KEY (parent_id) references categories (id) on delete CASCADE,
+  constraint categories_user_id_fkey foreign KEY (user_id) references auth.users (id) on delete CASCADE
+) TABLESPACE pg_default;
+
+
+ALTER POLICY "Category Auth Access"
+ON "public"."categories"
+TO authenticated
+USING (auth.uid() = user_id)
+WITH CHECK (auth.uid() = user_id);
