@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import {
   formActionSuccess,
   formActionGenericError,
-  formsActionValidationError,
+  formActionValidationError,
 } from "@/lib/api/helpers/formAction";
 import { createClient } from "@/lib/supabase/utils/server";
 import { PayeeFormFieldsSchema } from "@/features/payees/schema";
@@ -30,7 +30,7 @@ export default async function createPayeeAction(
   });
 
   if (validatedFields.error) {
-    return formsActionValidationError(
+    return formActionValidationError(
       validatedFields.error.flatten().fieldErrors
     );
   }

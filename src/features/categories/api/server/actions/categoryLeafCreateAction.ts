@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import {
   formActionGenericError,
   formActionSuccess,
-  formsActionValidationError,
+  formActionValidationError,
 } from "@/lib/api/helpers/formAction";
 import { createClient } from "@/lib/supabase/utils/server";
 import { UserNotFound } from "@/features/auth/exceptions/UserNotFound";
@@ -30,7 +30,7 @@ export default async function categoryLeafCreateAction(
   });
 
   if (validatedFields.error) {
-    return formsActionValidationError(
+    return formActionValidationError(
       validatedFields.error.flatten().fieldErrors
     );
   }

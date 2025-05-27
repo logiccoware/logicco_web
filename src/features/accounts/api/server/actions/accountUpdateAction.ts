@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import {
   formActionGenericError,
   formActionSuccess,
-  formsActionValidationError,
+  formActionValidationError,
 } from "@/lib/api/helpers/formAction";
 import { UserNotFound } from "@/features/auth/exceptions/UserNotFound";
 import { createClient } from "@/lib/supabase/utils/server";
@@ -37,7 +37,7 @@ export default async function accountUpdateAction(
   });
 
   if (validatedFields.error) {
-    return formsActionValidationError(
+    return formActionValidationError(
       validatedFields.error.flatten().fieldErrors
     );
   }

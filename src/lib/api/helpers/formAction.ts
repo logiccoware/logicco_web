@@ -1,4 +1,3 @@
-import { ValidationErrorSchema } from "@/lib/schema";
 import { IFormActionState } from "@/lib/types";
 
 export function formActionGenericError(): IFormActionState {
@@ -13,7 +12,7 @@ export function formActionGenericError(): IFormActionState {
   };
 }
 
-export function formsActionValidationError(
+export function formActionValidationError(
   errorObject: Record<string, string[]>
 ): IFormActionState {
   const transformed: Record<string, string> = {};
@@ -31,19 +30,6 @@ export function formsActionValidationError(
     },
     success: false,
   };
-}
-
-export function formActionValidationError(resBody: unknown): IFormActionState {
-  const validationError = ValidationErrorSchema.safeParse(resBody);
-
-  if (validationError.success) {
-    return {
-      error: validationError.data,
-      success: false,
-    };
-  }
-
-  return formActionGenericError();
 }
 
 export function formActionSuccess(): IFormActionState {

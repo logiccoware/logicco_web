@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import {
   formActionSuccess,
   formActionGenericError,
-  formsActionValidationError,
+  formActionValidationError,
 } from "@/lib/api/helpers/formAction";
 import { createClient } from "@/lib/supabase/utils/server";
 import { AccountFormFieldsSchema } from "@/features/accounts/schema";
@@ -34,7 +34,7 @@ export default async function createAccountAction(
   });
 
   if (validatedFields.error) {
-    return formsActionValidationError(
+    return formActionValidationError(
       validatedFields.error.flatten().fieldErrors
     );
   }

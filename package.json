@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.18.5",
     "@mantine/charts": "^7.17.5",
     "@mantine/core": "^7.17.5",
     "@mantine/dates": "^7.17.5",
@@ -21,7 +20,6 @@
     "@supabase/supabase-js": "^2.49.8",
     "@tabler/icons-react": "^3.31.0",
     "@xstate/react": "^5.0.4",
-    "better-auth": "^1.2.7",
     "cookies-next": "^6.0.0",
     "dayjs": "^1.11.13",
     "next": "15.3.1",
