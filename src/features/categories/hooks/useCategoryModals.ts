@@ -10,7 +10,7 @@ export const CATEGORY_MODALS = {
   categoryUpdateModal: "categoryUpdateModal",
 };
 
-interface IReturn {
+export interface IUseCategoryModalsReturn {
   openCategoryCreateModal: (selectedCategory?: ISelectedCategory) => void;
   openCategoryUpdateModal: (selectedCategory: ISelectedCategory) => void;
   isDeleteModalOpen: boolean;
@@ -18,7 +18,7 @@ interface IReturn {
   openCategoryDeleteModal: () => void;
 }
 
-export function useCategoryModals(): IReturn {
+export function useCategoryModals(): IUseCategoryModalsReturn {
   const t = useTranslations("Categories");
   const [opened, { open, close }] = useDisclosure(false);
 
@@ -58,6 +58,9 @@ export function useCategoryModals(): IReturn {
 
   const openCategoryUpdateModal = useCallback(
     (selectedCategory: ISelectedCategory) => {
+      if (!selectedCategory) {
+        return;
+      }
       openContextModal({
         modal: CATEGORY_MODALS.categoryUpdateModal,
         centered: true,

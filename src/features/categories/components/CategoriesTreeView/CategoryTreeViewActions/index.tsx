@@ -4,7 +4,7 @@ import { ISelectedCategory } from "@/features/categories/store/stateMachines/typ
 import { ActionIcon, Group } from "@mantine/core";
 import { IconEdit, IconPlus, IconTrash } from "@tabler/icons-react";
 
-interface IAction {
+export interface IAction {
   disabled: boolean;
   onClick: () => void;
 }

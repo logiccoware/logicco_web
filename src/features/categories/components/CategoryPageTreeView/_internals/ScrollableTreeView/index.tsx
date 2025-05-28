@@ -12,6 +12,7 @@ interface IProps {
   tree: UseTreeReturnType;
   selectCategory: TSelectCategoryFunction;
   unSelectCategory: () => void;
+  scrollHeight?: string;
 }
 
 export function ScrollableTreeView({

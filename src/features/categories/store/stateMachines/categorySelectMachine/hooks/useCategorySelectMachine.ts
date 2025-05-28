@@ -7,13 +7,13 @@ import type {
   TSelectCategoryFunction,
 } from "@/features/categories/store/stateMachines/types";
 
-interface IReturn {
+export interface IUseCategorySelectMachineReturn {
   selectCategory: TSelectCategoryFunction;
   unSelectCategory: () => void;
   selectedCategory?: ISelectedCategory;
 }
 
-export function useCategorySelectMachine(): IReturn {
+export function useCategorySelectMachine(): IUseCategorySelectMachineReturn {
   const actorRef = CategorySelectMachineContext.useActorRef();
 
   const selectedCategory = useSelector(

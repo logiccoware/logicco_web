@@ -12,7 +12,8 @@ interface IProps {
 }
 
 export function AccountsDataList({ list }: IProps) {
-  const t = useTranslations("Accounts");
+  const t = useTranslations("Transactions");
+
   const { openAccountUpdateModal } = useAccountModals();
 
   if (list.length === 0) {

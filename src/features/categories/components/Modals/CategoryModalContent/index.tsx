@@ -1,9 +1,15 @@
 "use client";
 
-import { Group, Stack, useTree, type TreeNodeData } from "@mantine/core";
+import {
+  getTreeExpandedState,
+  Group,
+  Stack,
+  useTree,
+  type TreeNodeData,
+} from "@mantine/core";
 import { CategoryTreeViewActions } from "@/features/categories/components/CategoriesTreeView/CategoryTreeViewActions";
 import { CategoriesTreeView } from "@/features/categories/components/CategoriesTreeView";
-import { CategoryDeleteModal } from "@/features/categories/components/Modals/CategoryDeleteModal";
+import { CategoryDeleteModal } from "../CategoryDeleteModal";
 import { useCategorySelectMachine } from "@/features/categories/store/stateMachines/categorySelectMachine/hooks/useCategorySelectMachine";
 import { useCategoryModals } from "@/features/categories/hooks/useCategoryModals";
 
@@ -11,17 +17,19 @@ interface IProps {
   data: TreeNodeData[];
 }
 
-export function CategoryPageTreeView({ data }: IProps) {
+export function CategoryModalContent({ data }: IProps) {
   const { selectCategory, selectedCategory, unSelectCategory } =
     useCategorySelectMachine();
   const {
     openCategoryCreateModal,
-    openCategoryDeleteModal,
     openCategoryUpdateModal,
     closeCategoryDeleteModal,
     isDeleteModalOpen,
   } = useCategoryModals();
-  const tree = useTree();
+  const tree = useTree({
+    initialSelectedState: selectedCategory ? [selectedCategory?.id] : [],
+    initialExpandedState: getTreeExpandedState(data, "*"),
+  });
 
   return (
     <>
@@ -37,14 +45,6 @@ export function CategoryPageTreeView({ data }: IProps) {
               selectedCategory
                 ? {
                     onClick: () => openCategoryUpdateModal(selectedCategory!),
-                    disabled: false,
-                  }
-                : undefined
-            }
-            deleteAction={
-              selectedCategory
-                ? {
-                    onClick: () => openCategoryDeleteModal(),
                     disabled: false,
                   }
                 : undefined

@@ -123,6 +123,9 @@
         "message": "Are you sure you want to delete this transaction?"
       }
     },
+    "create": {
+      "title": "Create Transaction"
+    },
     "dataList": {
       "emptyListMessage": "No transaction found.",
       "title": "Transactions"
