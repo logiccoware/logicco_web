@@ -1,12 +1,13 @@
 "use client";
 
-import { Alert, Chip, Group, Paper, Stack, Text } from "@mantine/core";
+import { Alert, Badge, Group, Paper, Stack, Text } from "@mantine/core";
 import { useTranslations } from "next-intl";
 import { TTransaction } from "@/features/transactions/schema";
 import classes from "@/features/transactions/components/TransactionsDataList/TransactionsDataList.module.css";
-import { format } from "date-fns";
+import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 import { useTransactionsPageGroupLink } from "@/features/transactions/hooks/useTransactionsPageGroupLink";
+import { IconCategory, IconUserSquareRounded } from "@tabler/icons-react";
 
 interface IProps {
   list: TTransaction[];
@@ -40,11 +41,23 @@ export function TransactionsDataList({ list }: IProps) {
           <Group justify="space-between">
             <Stack>
               <Text>
-                {item.amount} - {format(new Date(item.date), "PPP")}
+                {item.amount} - {dayjs(new Date(item.date)).format("MMM D")}
               </Text>
               <Group>
-                <Chip>{item.category}</Chip>
-                <Chip>{item.payee}</Chip>
+                <Badge
+                  size="lg"
+                  variant="outline"
+                  leftSection={<IconCategory size={14} />}
+                >
+                  {item.category}
+                </Badge>
+                <Badge
+                  size="lg"
+                  variant="outline"
+                  leftSection={<IconUserSquareRounded size={14} />}
+                >
+                  {item.payee}
+                </Badge>
               </Group>
             </Stack>
           </Group>

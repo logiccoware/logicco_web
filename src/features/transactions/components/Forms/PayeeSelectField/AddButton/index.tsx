@@ -7,8 +7,8 @@ import { IconPlus } from "@tabler/icons-react";
 export function AddButton() {
   const { openPayeeCreateModal } = usePayeeModals();
   return (
-    <ActionIcon onClick={openPayeeCreateModal} variant="default" size="md">
-      <IconPlus />
+    <ActionIcon size={32} onClick={openPayeeCreateModal} variant="default">
+      <IconPlus size={24} />
     </ActionIcon>
   );
 }
