@@ -17,8 +17,8 @@ import { useTranslations } from "next-intl";
 import { useSnackbar } from "@/lib/hooks/useSnackbar";
 import { TGetTransaction } from "@/features/transactions/api/server/fetch/getTransaction";
 import { useCategorySelectTreeView } from "@/features/categories/hooks/useCategorySelectTreeView";
-import { TransactionDeleteTrigger } from "../TransactionDeleteTrigger";
 import { IFormActionState } from "@/lib/types";
+import { useRouter } from "next/navigation";
 
 interface IProps {
   accountDefaultSelectedCookie: Promise<TAccountDefaultSelectedCookie | null>;
@@ -43,6 +43,8 @@ export function TransactionPageAction({
     FORM_ACTION_INIT_STATE
   );
 
+  const router = useRouter();
+
   const defaultSelectedCategory = transaction?.category
     ? {
         name: transaction.category.name,
@@ -58,7 +60,7 @@ export function TransactionPageAction({
   const errors = state?.error?.errors || null;
 
   const t = useTranslations("Transactions");
-  const { showErrorSnackbar } = useSnackbar();
+  const { showErrorSnackbar, showSuccessSnackbar } = useSnackbar();
 
   const accountId = transaction?.account?.id || accountDefaultCookie?.id;
 
@@ -70,6 +72,10 @@ export function TransactionPageAction({
   useEffect(() => {
     if (state.error?.errors?.unknown) {
       showErrorSnackbar();
+    }
+    if (state.success) {
+      showSuccessSnackbar(t("notifications.created"));
+      router.back();
     }
   }, [state.success, state.error?.errors.unknown]);
 
@@ -83,41 +89,55 @@ export function TransactionPageAction({
 
   return (
     <form action={formAction}>
-      <Stack>
+      <Stack gap="md">
         <Suspense fallback={null}>
           <Input type="hidden" name="accountId" defaultValue={accountId} />
         </Suspense>
         <Input type="hidden" name="transactionId" value={transaction?.id} />
-        <DateField
-          date={transaction?.date ? new Date(transaction.date) : undefined}
-          error={errors?.date}
-        />
-        <AmountField amount={transaction?.amount} error={errors?.amount} />
-        <Suspense fallback={<div>Loading payees...</div>}>
-          <PayeeSelectField
-            defaultValue={transaction?.payee?.id}
-            error={errors?.payeeId}
-            data={payeesData}
-          />
-        </Suspense>
-        <Suspense fallback={<div>Loading categories...</div>}>
-          <CategorySelectField
-            error={errors?.categoryId}
-            data={categoriesData}
-            selectCategory={selectCategory}
-            unSelectCategory={unSelectCategory}
-            selectedCategory={selectedCategory}
-          />
-        </Suspense>
-        <TypeSelectField type={transaction?.type} error={errors?.type} />
-        <NoteField note={transaction?.note} error={errors?.note} />
-        <Group justify="flex-end">
-          {transaction ? (
-            <TransactionDeleteTrigger transactionId={transaction.id} />
-          ) : null}
-          <SaveButton disabled={pending} />
-        </Group>
+
+        <Stack gap="md">
+          <Group grow={false} w="100%">
+            <Stack w="100%" gap="md">
+              <DateField
+                date={
+                  transaction?.date ? new Date(transaction.date) : undefined
+                }
+                error={errors?.date}
+              />
+              <AmountField
+                amount={transaction?.amount}
+                error={errors?.amount}
+              />
+            </Stack>
+          </Group>
+
+          <Group grow={false} w="100%">
+            <Stack w="100%" gap="md">
+              <Suspense fallback={<div>Loading payees...</div>}>
+                <PayeeSelectField
+                  defaultValue={transaction?.payee?.id}
+                  error={errors?.payeeId}
+                  data={payeesData}
+                />
+              </Suspense>
+              <Suspense fallback={<div>Loading categories...</div>}>
+                <CategorySelectField
+                  error={errors?.categoryId}
+                  data={categoriesData}
+                  selectCategory={selectCategory}
+                  unSelectCategory={unSelectCategory}
+                  selectedCategory={selectedCategory}
+                />
+              </Suspense>
+            </Stack>
+          </Group>
+          <TypeSelectField type={transaction?.type} error={errors?.type} />
+          <NoteField note={transaction?.note} error={errors?.note} />
+        </Stack>
       </Stack>
+      <Group mt="md" justify="flex-end">
+        <SaveButton disabled={pending} />
+      </Group>
     </form>
   );
 }

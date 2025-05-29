@@ -1,6 +1,6 @@
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
-import '@mantine/dates/styles.css';
+import "@mantine/dates/styles.css";
 
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -22,6 +22,7 @@ import { CategoryUpdateModal } from "@/features/categories/components/Modals/Cat
 import { AccountCreateModal } from "@/features/accounts/components/Modals/AccountCreateModal";
 import { AccountUpdateModal } from "@/features/accounts/components/Modals/AccountUpdateModal";
 import { AccountDeleteModal } from "@/features/accounts/components/Modals/AccountDeleteModal";
+import { TransactionDeleteModal } from "@/features/transactions/components/Modals/TrannsactionDeleteModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,6 +49,7 @@ const modals = {
   accountCreateModal: AccountCreateModal,
   accountUpdateModal: AccountUpdateModal,
   accountDeleteModal: AccountDeleteModal,
+  transactionDeleteModal: TransactionDeleteModal,
 };
 
 declare module "@mantine/modals" {
@@ -58,8 +60,10 @@ declare module "@mantine/modals" {
 
 export default async function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   const locale = await getLocale();
 
@@ -78,6 +82,7 @@ export default async function RootLayout({
             <ModalsProvider modals={modals}>
               <Notifications />
               {children}
+              {modal}
             </ModalsProvider>
           </MantineProvider>
         </NextIntlClientProvider>

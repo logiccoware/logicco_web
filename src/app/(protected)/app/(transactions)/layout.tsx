@@ -1,10 +1,7 @@
 import { AppTabs } from "@/components/layouts/ProtectedLayout/AppTabs";
+import { ReactNode } from "react";
 
-export interface IProps {
-  children: React.ReactNode;
-}
-
-export default async function Layout({ children }: IProps) {
+export default async function Layout({ children }: { children: ReactNode }) {
   return (
     <div>
       <AppTabs />
