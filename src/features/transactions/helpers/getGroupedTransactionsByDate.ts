@@ -1,4 +1,5 @@
-import { TTransaction } from "../schema";
+import dayjs from "dayjs";
+import type { TTransaction } from "@/features/transactions/schema";
 
 export interface IGroupedTransactionsByDate {
   date: string;
@@ -13,9 +14,8 @@ export interface IGroupedTransactionsByDate {
 export function getGroupedTransactionsByDate(
   transactions: TTransaction[]
 ): IGroupedTransactionsByDate[] {
-  // Use a map to group transactions by date
   const groupedMap = transactions.reduce((acc, transaction) => {
-    const date = transaction.date;
+    const date = dayjs(transaction.date).format("YYYY-MM-DD"); // Format date using dayjs
 
     if (!acc.has(date)) {
       acc.set(date, []);
@@ -25,7 +25,6 @@ export function getGroupedTransactionsByDate(
     return acc;
   }, new Map<string, TTransaction[]>());
 
-  // Convert map to array and sort by date (most recent first)
   const result = Array.from(groupedMap.entries()).map(
     ([date, transactions]) => ({
       date,
@@ -35,8 +34,8 @@ export function getGroupedTransactionsByDate(
 
   // Sort by date in descending order (newest first)
   result.sort((a, b) => {
-    const dateA = new Date(a.date).getTime();
-    const dateB = new Date(b.date).getTime();
+    const dateA = dayjs(a.date).valueOf(); // Using dayjs for consistent date parsing
+    const dateB = dayjs(b.date).valueOf();
     return dateB - dateA;
   });
 

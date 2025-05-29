@@ -4,7 +4,7 @@ import { protectAuthRoute } from "@/features/auth/helpers/protectAuthRoute";
 import { ComingSoonSection } from "@/components/ui/ComingSoonSection";
 
 export const metadata: Metadata = {
-  title: "Spending | Logicco",
+  title: "Category Spending | Logicco",
 };
 
 export default async function OverviewPage() {

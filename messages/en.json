@@ -105,6 +105,12 @@
       "title": "Payees"
     }
   },
+  "Spendings": {
+    "payees": {
+      "title": "Payees",
+      "emptyListMessage": "No transactions found."
+    }
+  },
   "Transactions": {
     "form": {
       "fields": {
