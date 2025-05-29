@@ -2,8 +2,6 @@ import { formatCurrency } from "@/features/accounts/helpers/currency";
 import { CurrencyCodeSchema } from "@/features/accounts/schema";
 import { TransactionTypeSchema } from "@/features/transactions/schema";
 import { createClient } from "@/lib/supabase/utils/server";
-// import type { IGetTransactionsListOptions } from "@/features/transactions/types";
-// import { formatCurrency } from "@/features/accounts/helpers/currency";
 import { z } from "zod";
 
 export const GetTransactionQueryResponseSchema = z.object({

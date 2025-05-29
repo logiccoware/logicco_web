@@ -10,8 +10,6 @@ import {
 import { createClient } from "@/lib/supabase/utils/server";
 import { TransactionFormValidationSchema } from "@/features/transactions/schema";
 import { UserNotFound } from "@/features/auth/exceptions/UserNotFound";
-// import { headers } from "next/headers";
-// import { redirect } from "next/navigation";
 
 export default async function transactionCreateAction(
   prevState: unknown,
@@ -26,15 +24,6 @@ export default async function transactionCreateAction(
   if (userError || !user) {
     throw new UserNotFound();
   }
-
-  // const headersList = await headers();
-  // const referer = headersList.get("referer") || "";
-  // const url = new URL(referer);
-  // const queryString = url.search;
-
-  // Check if this action is being called from a modal context
-  // const isModal =
-  //   url.pathname.includes("/create") && url.pathname.includes("/transactions");
 
   const formDataFields = {
     amount: formData.get("amount"),

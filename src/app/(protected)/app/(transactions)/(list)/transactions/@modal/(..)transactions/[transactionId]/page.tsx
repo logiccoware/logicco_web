@@ -1,4 +1,3 @@
-// import type { Metadata } from "next";
 import { protectAuthRoute } from "@/features/auth/helpers/protectAuthRoute";
 import { getTranslations } from "next-intl/server";
 import { getPayeesList } from "@/features/payees/api/server/fetch/getPayeesList";
