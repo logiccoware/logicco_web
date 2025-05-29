@@ -4,13 +4,14 @@ import { IFormActionState } from "@/lib/types";
 import { revalidatePath } from "next/cache";
 import {
   formActionGenericError,
+  formActionSuccess,
   formActionValidationError,
 } from "@/lib/api/helpers/formAction";
 import { createClient } from "@/lib/supabase/utils/server";
 import { TransactionFormValidationSchema } from "@/features/transactions/schema";
 import { UserNotFound } from "@/features/auth/exceptions/UserNotFound";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
+// import { headers } from "next/headers";
+// import { redirect } from "next/navigation";
 
 export default async function transactionCreateAction(
   prevState: unknown,
@@ -26,10 +27,14 @@ export default async function transactionCreateAction(
     throw new UserNotFound();
   }
 
-  const headersList = await headers();
-  const referer = headersList.get("referer") || "";
-  const url = new URL(referer);
-  const queryString = url.search;
+  // const headersList = await headers();
+  // const referer = headersList.get("referer") || "";
+  // const url = new URL(referer);
+  // const queryString = url.search;
+
+  // Check if this action is being called from a modal context
+  // const isModal =
+  //   url.pathname.includes("/create") && url.pathname.includes("/transactions");
 
   const formDataFields = {
     amount: formData.get("amount"),
@@ -50,6 +55,7 @@ export default async function transactionCreateAction(
     );
   }
 
+  // Rest of your transaction creation logic...
   const { data: transaction, error: transactionError } = await supabase
     .from("transactions")
     .insert({
@@ -82,5 +88,5 @@ export default async function transactionCreateAction(
 
   revalidatePath("app/transactions");
 
-  redirect(`/app/transactions${queryString}`);
+  return formActionSuccess();
 }

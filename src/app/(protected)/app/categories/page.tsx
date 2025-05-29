@@ -14,7 +14,7 @@ export default async function Home() {
   const t = await getTranslations("Categories");
   const { treeNodeData } = await getCategoryTreeView();
   return (
-    <Stack gap="md">
+    <Stack gap="xl">
       <Group justify="space-between">
         <Title order={4}>{t("dataList.title")}</Title>
       </Group>

@@ -1,12 +1,13 @@
 "use server";
 
 import { IFormActionState } from "@/lib/types";
-import { revalidatePath } from "next/cache";
-import { formActionGenericError } from "@/lib/api/helpers/formAction";
+import {
+  formActionGenericError,
+  formActionSuccess,
+} from "@/lib/api/helpers/formAction";
 import { createClient } from "@/lib/supabase/utils/server";
 import { UserNotFound } from "@/features/auth/exceptions/UserNotFound";
-import { redirect } from "next/navigation";
-import { headers } from "next/headers";
+import { revalidatePath } from "next/cache";
 
 export default async function transactionDeleteAction(
   prevState: unknown,
@@ -21,11 +22,6 @@ export default async function transactionDeleteAction(
   if (userError || !user) {
     throw new UserNotFound();
   }
-
-  const headersList = await headers();
-  const referer = headersList.get("referer") || "";
-  const url = new URL(referer);
-  const queryString = url.search;
 
   const transactionId = formData.get("entityId") as string;
 
@@ -46,7 +42,7 @@ export default async function transactionDeleteAction(
     return formActionGenericError();
   }
 
-  revalidatePath("app/transactions");
+  revalidatePath("/app/transactions");
 
-  redirect(`/app/transactions${queryString}`);
+  return formActionSuccess();
 }

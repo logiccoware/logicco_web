@@ -17,7 +17,7 @@ export function AmountField({ amount, error }: IProps) {
       placeholder={t("placeholder")}
       defaultValue={amount}
       allowNegative={false}
-      inputMode="numeric"
+      inputMode="decimal"
       allowDecimal
       name="amount"
       size="md"

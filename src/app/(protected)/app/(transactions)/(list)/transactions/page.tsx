@@ -6,6 +6,7 @@ import { TransactionCreateButton } from "@/features/transactions/components/Tran
 import { TransactionsDataList } from "@/features/transactions/components/TransactionsDataList";
 import { getTranslations } from "next-intl/server";
 import { DateMonthSwitcher } from "@/components/layouts/ProtectedLayout/DateMonthSwitcher";
+import { getGroupedTransactionsByDate } from "@/features/transactions/helpers/getGroupedTransactionsByDate";
 
 export const metadata: Metadata = {
   title: "Transactions | Logicco",
@@ -27,17 +28,19 @@ export default async function TransactionsPage({
     },
   });
 
+  const groupedTransactionsByDate = getGroupedTransactionsByDate(transactions);
+
   return (
     <>
       <Center my="md">
         <DateMonthSwitcher />
       </Center>
-      <Stack gap="md">
+      <Stack gap='xl'>
         <Group justify="space-between">
           <Title order={4}>{t("dataList.title")}</Title>
           <TransactionCreateButton />
         </Group>
-        <TransactionsDataList list={transactions} />
+        <TransactionsDataList list={groupedTransactionsByDate} />
       </Stack>
     </>
   );

@@ -17,7 +17,7 @@ export default async function PayeesPage() {
   const { payees } = await getPayeesList();
   const payeesDataList = toPayeeDataList(payees);
   return (
-    <Stack gap="md">
+    <Stack gap="xl">
       <Group justify="space-between">
         <Title order={4}>{t("dataList.title")}</Title>
         <PayeeCreateButton />

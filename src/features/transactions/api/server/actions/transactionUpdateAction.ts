@@ -4,13 +4,14 @@ import { IFormActionState } from "@/lib/types";
 import { revalidatePath } from "next/cache";
 import {
   formActionGenericError,
+  formActionSuccess,
   formActionValidationError,
 } from "@/lib/api/helpers/formAction";
 import { createClient } from "@/lib/supabase/utils/server";
 import { TransactionFormValidationSchema } from "@/features/transactions/schema";
 import { UserNotFound } from "@/features/auth/exceptions/UserNotFound";
-import { redirect } from "next/navigation";
-import { headers } from "next/headers";
+// import { redirect } from "next/navigation";
+// import { headers } from "next/headers";
 
 export default async function transactionUpdateAction(
   prevState: unknown,
@@ -26,10 +27,10 @@ export default async function transactionUpdateAction(
     throw new UserNotFound();
   }
 
-  const headersList = await headers();
-  const referer = headersList.get("referer") || "";
-  const url = new URL(referer);
-  const queryString = url.search;
+  // const headersList = await headers();
+  // const referer = headersList.get("referer") || "";
+  // const url = new URL(referer);
+  // const queryString = url.search;
 
   const transactionId = formData.get("transactionId");
 
@@ -104,5 +105,7 @@ export default async function transactionUpdateAction(
 
   revalidatePath("app/transactions");
 
-  redirect(`/app/transactions${queryString}`);
+  return formActionSuccess();
+
+  // redirect(`/app/transactions${queryString}`);
 }
