@@ -1,21 +1,26 @@
+import { TRANSACTION_TYPES } from "@/features/transactions/constants";
+import { getTranslationTypesComboBoxData } from "@/features/transactions/helpers/getTransactionTypesComboBoxData";
+import { TTransactionType } from "@/features/transactions/schema";
 import { Select } from "@mantine/core";
+import { useTranslations } from "next-intl";
 
 interface IProps {
-  type?: "INCOME" | "EXPENSE";
+  type?: TTransactionType;
+  error?: string;
 }
 
-export function TypeSelectField({ type }: IProps) {
+export function TypeSelectField({ type, error }: IProps) {
+  const t = useTranslations();
+  const data = getTranslationTypesComboBoxData(t);
   return (
     <Select
-      label="Type"
-      placeholder="Select type"
-      defaultValue={type}
+      error={error}
+      label={t("Transactions.form.fields.type.label")}
+      placeholder={t("Transactions.form.fields.type.placeholder")}
+      defaultValue={type ?? TRANSACTION_TYPES.EXPENSE}
       size="md"
       name="type"
-      data={[
-        { value: "INCOME", label: "Income" },
-        { value: "EXPENSE", label: "Expense" },
-      ]}
+      data={data}
     />
   );
 }

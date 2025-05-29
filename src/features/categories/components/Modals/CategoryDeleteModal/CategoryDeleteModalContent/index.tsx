@@ -6,7 +6,7 @@ import { ActionDeleteModal } from "@/components/ui/Modals/ActionDeleteModal";
 import categoryDeleteAction from "@/features/categories/api/server/actions/categoryDeleteAction";
 import { useTranslations } from "next-intl";
 import { useSnackbar } from "@/lib/hooks/useSnackbar";
-import { ISelectedCategory } from "@/features/categories/store/stateMachines/types";
+import { ISelectedCategory } from "@/features/categories/types";
 
 interface IProps {
   selectedCategory: ISelectedCategory;

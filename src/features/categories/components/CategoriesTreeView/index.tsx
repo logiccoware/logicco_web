@@ -7,7 +7,7 @@ import {
   type UseTreeReturnType,
 } from "@mantine/core";
 import { TreeViewData } from "@/features/categories/components/CategoriesTreeView/TreeViewData";
-import type { TSelectCategoryFunction } from "@/features/categories/store/stateMachines/types";
+import type { TSelectCategoryFunction } from "@/features/categories/types";
 import { useTranslations } from "next-intl";
 
 interface IProps {

@@ -1,7 +1,7 @@
 import { openContextModal } from "@mantine/modals";
 import { useTranslations } from "next-intl";
 import { useCallback } from "react";
-import type { ISelectedCategory } from "@/features/categories/store/stateMachines/types";
+import type { ISelectedCategory } from "@/features/categories/types";
 import { useDisclosure } from "@mantine/hooks";
 
 export const CATEGORY_MODALS = {

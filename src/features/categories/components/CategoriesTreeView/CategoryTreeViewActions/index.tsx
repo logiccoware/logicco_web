@@ -1,6 +1,6 @@
 "use client";
 
-import { ISelectedCategory } from "@/features/categories/store/stateMachines/types";
+import { ISelectedCategory } from "@/features/categories/types";
 import { ActionIcon, Group } from "@mantine/core";
 import { IconEdit, IconPlus, IconTrash } from "@tabler/icons-react";
 

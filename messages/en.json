@@ -106,21 +106,66 @@
     }
   },
   "Transactions": {
+    "form": {
+      "fields": {
+        "type": {
+          "label": "Type",
+          "placeholder": "Select transaction type",
+          "comboBox": {
+            "income": "Income",
+            "expense": "Expense"
+          }
+        },
+        "payee": {
+          "label": "Payee",
+          "placeholder": "Select payee"
+        },
+        "amount": {
+          "label": "Amount",
+          "placeholder": "Enter amount"
+        },
+        "date": {
+          "label": "Date",
+          "placeholder": "Select date"
+        },
+        "category": {
+          "label": "Category",
+          "placeholder": "Select category",
+          "noCategorySelectedMessage": "No category selected.",
+          "modal": {
+            "title": "Select Category",
+            "cta": "Dismiss"
+          }
+        },
+        "note": {
+          "label": "Note",
+          "placeholder": "Enter note"
+        },
+        "account": {
+          "label": "Account",
+          "placeholder": "Select account",
+          "noDefaultAccountMessage": "Default account must be selected before doing any action with transactions."
+        }
+      },
+      "saveButton": "Save"
+    },
     "notifications": {
       "created": "Transaction Created.",
       "updated": "Transaction Updated.",
       "deleted": "Transaction Delete."
     },
+    "page": {
+      "update": {
+        "title": "Update Transaction"
+      }
+    },
     "modals": {
       "create": {
         "title": "Create Transaction"
       },
-      "update": {
-        "title": "Update Transaction"
-      },
       "delete": {
         "title": "Delete Transaction",
-        "message": "Are you sure you want to delete this transaction?"
+        "message": "Are you sure you want to delete this transaction? Deleting a transaction will remove it permanently."
       }
     },
     "create": {

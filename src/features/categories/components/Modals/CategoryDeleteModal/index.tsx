@@ -1,7 +1,7 @@
 import { Modal } from "@mantine/core";
 import { CategoryDeleteModalContent } from "@/features/categories/components/Modals/CategoryDeleteModal/CategoryDeleteModalContent";
 import { useTranslations } from "next-intl";
-import type { ISelectedCategory } from "@/features/categories/store/stateMachines/types";
+import type { ISelectedCategory } from "@/features/categories/types";
 
 interface IProps {
   isDeleteModalOpen: boolean;

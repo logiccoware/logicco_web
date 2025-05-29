@@ -1,15 +1,22 @@
+"use client";
+
 import { NumberInput } from "@mantine/core";
+import { useTranslations } from "next-intl";
 
 interface IProps {
-  amount?: number;
+  error?: string;
+  amount?: string;
 }
 
-export function AmountField({ amount }: IProps) {
+export function AmountField({ amount, error }: IProps) {
+  const t = useTranslations("Transactions.form.fields.amount");
   return (
     <NumberInput
-      label="Amount"
-      placeholder="Enter amount"
+      error={error}
+      label={t("label")}
+      placeholder={t("placeholder")}
       defaultValue={amount}
+      allowNegative={false}
       allowDecimal
       name="amount"
       size="md"

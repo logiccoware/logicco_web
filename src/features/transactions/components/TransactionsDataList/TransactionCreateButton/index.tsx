@@ -1,21 +1,16 @@
 "use client";
 
+import { useTransactionsPageGroupLink } from "@/features/transactions/hooks/useTransactionsPageGroupLink";
 import { Button } from "@mantine/core";
 import { useTranslations } from "next-intl";
 import NextLink from "next/link";
-import { useSearchParams } from "next/navigation";
 
 export function TransactionCreateButton() {
   const t = useTranslations("Common");
-  const searchParams = useSearchParams();
-
-  const createLink = () => {
-    const params = new URLSearchParams(searchParams.toString());
-    return `/app/transactions/create?${params.toString()}`;
-  };
+  const { getLink } = useTransactionsPageGroupLink();
 
   return (
-    <Button href={createLink()} component={NextLink}>
+    <Button href={getLink("/app/transactions/create")} component={NextLink}>
       {t("dataList.createButton")}
     </Button>
   );

@@ -1,27 +1,39 @@
 "use client";
 
-import { TGetCategoriesTreeView } from "@/features/categories/api/schema";
+import { TGetCategoriesTreeView } from "@/features/categories/api/server/fetch/getCategoryTreeView";
 import { CategoryModalContent } from "@/features/categories/components/Modals/CategoryModalContent";
-import { toTreeViewData } from "@/features/categories/helpers/toTreeViewData";
-import { useCategorySelectMachine } from "@/features/categories/store/stateMachines/categorySelectMachine/hooks/useCategorySelectMachine";
-import { Button, Group, Modal, Chip, Stack, Text } from "@mantine/core";
+import {
+  ISelectedCategory,
+  TSelectCategoryFunction,
+} from "@/features/categories/types";
+import { Button, Group, Modal, Chip, Stack, Text, Alert } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { useTranslations } from "next-intl";
 import { use } from "react";
 
 interface IProps {
   data: Promise<TGetCategoriesTreeView>;
+  error?: string;
+  selectedCategory?: ISelectedCategory;
+  selectCategory: TSelectCategoryFunction;
+  unSelectCategory: () => void;
 }
 
-export function CategorySelectField({ data }: IProps) {
+export function CategorySelectField({
+  data,
+  error,
+  selectCategory,
+  unSelectCategory,
+  selectedCategory,
+}: IProps) {
+  const t = useTranslations("Transactions.form.fields.category");
   const categoriesData = use(data);
-  const categoriesTreeNodeData = toTreeViewData(categoriesData.categories);
   const [opened, { open, close }] = useDisclosure(false);
-  const { selectedCategory, unSelectCategory } = useCategorySelectMachine();
   const selectedCategoryLabel = getSelectedCategoryLabel();
 
   function getSelectedCategoryLabel() {
     if (!selectedCategory) {
-      return "No category selected";
+      return t("noCategorySelectedMessage");
     }
     const parentName = selectedCategory.parent?.name
       ? `${selectedCategory.parent.name}:`
@@ -29,48 +41,49 @@ export function CategorySelectField({ data }: IProps) {
     return `${parentName}${selectedCategory.name} `;
   }
 
-  function handleSelect() {
-    close();
-  }
-
   function handleClose() {
     close();
-    unSelectCategory();
   }
 
   return (
     <>
       <Stack gap="xs">
-        <Text fw="normal">Category</Text>
+        <Text fw="normal">{t("label")}</Text>
         <Chip
-          w={"100%"}
+          color="default"
           variant="outline"
-          checked={false}
+          checked={Boolean(selectedCategory)}
           size="md"
           name="categoryId"
-          value={selectedCategory?.id}
+          defaultValue={selectedCategory?.id}
           onClick={open}
         >
           {selectedCategoryLabel}
         </Chip>
+        {error ? <Alert color="red">{error}</Alert> : null}
       </Stack>
 
       <Modal
         withCloseButton={false}
-        closeOnClickOutside={false}
         centered
         opened={opened}
         onClose={handleClose}
-        title="Select Category"
+        title={t("modal.title")}
       >
         <Stack>
-          <CategoryModalContent data={categoriesTreeNodeData} />
+          <CategoryModalContent
+            selectCategory={selectCategory}
+            selectedCategory={selectedCategory}
+            unSelectCategory={unSelectCategory}
+            data={categoriesData.treeNodeData}
+          />
           <Group justify="flex-end">
-            <Button onClick={handleClose} variant="default">
-              Cancel
-            </Button>
-            <Button disabled={!Boolean(selectedCategory)} onClick={handleSelect}>
-              Select
+            <Button
+              variant="default"
+              disabled={!Boolean(selectedCategory)}
+              onClick={handleClose}
+            >
+              {t("modal.cta")}
             </Button>
           </Group>
         </Stack>

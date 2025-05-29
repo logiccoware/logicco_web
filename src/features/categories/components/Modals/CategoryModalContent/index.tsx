@@ -10,16 +10,22 @@ import {
 import { CategoryTreeViewActions } from "@/features/categories/components/CategoriesTreeView/CategoryTreeViewActions";
 import { CategoriesTreeView } from "@/features/categories/components/CategoriesTreeView";
 import { CategoryDeleteModal } from "../CategoryDeleteModal";
-import { useCategorySelectMachine } from "@/features/categories/store/stateMachines/categorySelectMachine/hooks/useCategorySelectMachine";
 import { useCategoryModals } from "@/features/categories/hooks/useCategoryModals";
+import { ISelectedCategory, TSelectCategoryFunction } from "@/features/categories/types";
 
 interface IProps {
+  selectedCategory?: ISelectedCategory;
+  selectCategory: TSelectCategoryFunction;
+  unSelectCategory: () => void;
   data: TreeNodeData[];
 }
 
-export function CategoryModalContent({ data }: IProps) {
-  const { selectCategory, selectedCategory, unSelectCategory } =
-    useCategorySelectMachine();
+export function CategoryModalContent({
+  data,
+  selectCategory,
+  unSelectCategory,
+  selectedCategory,
+}: IProps) {
   const {
     openCategoryCreateModal,
     openCategoryUpdateModal,

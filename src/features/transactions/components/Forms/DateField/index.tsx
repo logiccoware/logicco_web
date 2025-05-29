@@ -1,19 +1,21 @@
 import { DateInput } from "@mantine/dates";
+import { useTranslations } from "next-intl";
 
 interface IProps {
   date?: Date;
+  error?: string;
 }
 
-export function DateField({ date }: IProps) {
+export function DateField({ date, error }: IProps) {
+  const t = useTranslations("Transactions.form.fields.date");
   return (
-    <>
-      <DateInput
-        name="date"
-        size="md"
-        label="Date"
-        placeholder="Date input"
-        defaultDate={date}
-      />
-    </>
+    <DateInput
+      error={error}
+      name="date"
+      size="md"
+      label={t("label")}
+      placeholder={t("placeholder")}
+      defaultValue={date}
+    />
   );
 }

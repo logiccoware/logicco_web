@@ -6,7 +6,7 @@ import {
   GetTransationsListSchema,
   GetTransactionsListQueryResponseSchema,
 } from "@/features/transactions/schema";
-import { getAccountDefaultSelectedCookie } from "@/features/accounts/helpers/server/getAccountDefaultSelectedCookie";
+import { getAccountDefaultSelectedCookie } from "@/features/accounts/api/server/actions/getAccountDefaultSelectedCookie";
 import type { IGetTransactionsListOptions } from "@/features/transactions/types";
 import { formatCurrency } from "@/features/accounts/helpers/currency";
 import dayjs from "dayjs";

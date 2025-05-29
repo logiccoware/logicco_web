@@ -4,7 +4,7 @@ import { Group, Stack, useTree, type TreeNodeData } from "@mantine/core";
 import { CategoryTreeViewActions } from "@/features/categories/components/CategoriesTreeView/CategoryTreeViewActions";
 import { CategoriesTreeView } from "@/features/categories/components/CategoriesTreeView";
 import { CategoryDeleteModal } from "@/features/categories/components/Modals/CategoryDeleteModal";
-import { useCategorySelectMachine } from "@/features/categories/store/stateMachines/categorySelectMachine/hooks/useCategorySelectMachine";
+import { useCategorySelectTreeView } from "@/features/categories/hooks/useCategorySelectTreeView";
 import { useCategoryModals } from "@/features/categories/hooks/useCategoryModals";
 
 interface IProps {
@@ -13,7 +13,9 @@ interface IProps {
 
 export function CategoryPageTreeView({ data }: IProps) {
   const { selectCategory, selectedCategory, unSelectCategory } =
-    useCategorySelectMachine();
+    useCategorySelectTreeView({
+      defaultSelectedCategory: undefined,
+    });
   const {
     openCategoryCreateModal,
     openCategoryDeleteModal,

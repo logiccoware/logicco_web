@@ -7,7 +7,7 @@ import { IFormActionState } from "@/lib/types";
 import categoryUpdateAction from "@/features/categories/api/server/actions/categoryUpdateAction";
 import { useSnackbar } from "@/lib/hooks/useSnackbar";
 import { useTranslations } from "next-intl";
-import { ISelectedCategory } from "@/features/categories/store/stateMachines/types";
+import { ISelectedCategory } from "@/features/categories/types";
 
 const initialState: IFormActionState = {
   success: false,

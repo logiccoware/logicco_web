@@ -10,9 +10,9 @@ import {
 import { UserNotFound } from "@/features/auth/exceptions/UserNotFound";
 import { createClient } from "@/lib/supabase/utils/server";
 import { AccountFormFieldsSchema } from "@/features/accounts/schema";
-import { getAccountDefaultSelectedCookie } from "@/features/accounts/helpers/server/getAccountDefaultSelectedCookie";
-import { setAccountDefaultSelectedCookie } from "@/features/accounts/helpers/server/setAccountDefaultSelectedCookie";
-import { deleteAccountDefaultSelectedCookie } from "@/features/accounts/helpers/server/deleteAccountDefaultSelectedCookie";
+import { getAccountDefaultSelectedCookie } from "@/features/accounts/api/server/actions/getAccountDefaultSelectedCookie";
+import { setAccountDefaultSelectedCookie } from "@/features/accounts/api/server/actions/setAccountDefaultSelectedCookie";
+import { deleteAccountDefaultSelectedCookie } from "@/features/accounts/api/server/actions/deleteAccountDefaultSelectedCookie";
 
 export default async function accountUpdateAction(
   prevState: unknown,

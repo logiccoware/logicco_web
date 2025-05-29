@@ -1,35 +1,39 @@
 "use client";
 
-import { ComboboxItem, Group, Select } from "@mantine/core";
+import { Box, ComboboxItem, Group, Select } from "@mantine/core";
 import { AddButton } from "@/features/transactions/components/Forms/PayeeSelectField/AddButton";
 import { TGetPayeesList } from "@/features/payees/schema";
 import { use } from "react";
+import { useTranslations } from "next-intl";
 
 interface IProps {
   data: Promise<TGetPayeesList>;
   defaultValue?: string;
+  error?: string;
 }
 
-export function PayeeSelectField({ defaultValue, data }: IProps) {
+export function PayeeSelectField({ defaultValue, data, error }: IProps) {
+  const t = useTranslations("Transactions.form.fields.payee");
   const payeeData = use(data);
   const comboBoxData: ComboboxItem[] = payeeData.payees.map((payee) => ({
     value: payee.id,
     label: payee.name,
   }));
   return (
-    <Group align="center">
+    <Group>
       <Select
-        label="Payee"
-        placeholder="Select Payee"
+        error={error}
+        label={t("label")}
+        placeholder={t("placeholder")}
         defaultValue={defaultValue}
         searchable
         size="md"
-        name="type"
+        name="payeeId"
         data={comboBoxData}
       />
-      <Group mt="sm">
+      <Box mt="lg">
         <AddButton />
-      </Group>
+      </Box>
     </Group>
   );
 }

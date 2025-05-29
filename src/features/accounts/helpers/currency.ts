@@ -1,14 +1,13 @@
 import currency from "currency.js";
 import { TCurrnecyCode } from "@/features/accounts/schema";
 
-const cad = (value: number) =>
-  currency(value, { symbol: "$", separator: ".", decimal: "," });
+const cad = (value: number) => currency(value / 100, { symbol: "$", separator: ",", decimal: "." });
 
 const usd = (value: number) =>
-  currency(value, { symbol: "$", separator: ",", decimal: "." });
+  currency(value / 100, { symbol: "$", separator: ",", decimal: "." });
 
 const inr = (value: number) =>
-  currency(value, { symbol: "₹", separator: ",", decimal: "." });
+  currency(value / 100, { symbol: "₹", separator: ",", decimal: "." });
 
 export function formatCurrency(amount: number, currencyCode: TCurrnecyCode) {
   switch (currencyCode) {
@@ -19,6 +18,6 @@ export function formatCurrency(amount: number, currencyCode: TCurrnecyCode) {
     case "INR":
       return inr(amount).format();
     default:
-      return currency(amount).format(); // Fallback to default formatting
+      return currency(amount / 100).format(); // Fallback to default formatting
   }
 }

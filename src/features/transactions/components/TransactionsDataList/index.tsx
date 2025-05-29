@@ -5,6 +5,8 @@ import { useTranslations } from "next-intl";
 import { TTransaction } from "@/features/transactions/schema";
 import classes from "@/features/transactions/components/TransactionsDataList/TransactionsDataList.module.css";
 import { format } from "date-fns";
+import { useRouter } from "next/navigation";
+import { useTransactionsPageGroupLink } from "@/features/transactions/hooks/useTransactionsPageGroupLink";
 
 interface IProps {
   list: TTransaction[];
@@ -12,6 +14,8 @@ interface IProps {
 
 export function TransactionsDataList({ list }: IProps) {
   const t = useTranslations("Transactions");
+  const router = useRouter();
+  const { getLink } = useTransactionsPageGroupLink();
 
   if (list.length === 0) {
     return (
@@ -26,7 +30,7 @@ export function TransactionsDataList({ list }: IProps) {
       {list.map((item) => (
         <Paper
           onClick={() => {
-            console.log("Transaction clicked:", item.id);
+            router.push(getLink(`/app/transactions/${item.id}`));
           }}
           className={classes.item}
           p="sm"
@@ -35,7 +39,9 @@ export function TransactionsDataList({ list }: IProps) {
         >
           <Group justify="space-between">
             <Stack>
-              <Text>{item.amount} - {format(new Date(item.date), "PPP")}</Text>
+              <Text>
+                {item.amount} - {format(new Date(item.date), "PPP")}
+              </Text>
               <Group>
                 <Chip>{item.category}</Chip>
                 <Chip>{item.payee}</Chip>
