@@ -109,6 +109,10 @@
     "payees": {
       "title": "Payees",
       "emptyListMessage": "No transactions found."
+    },
+    "categories": {
+      "title": "Categories",
+      "emptyListMessage": "No transactions found."
     }
   },
   "Transactions": {
