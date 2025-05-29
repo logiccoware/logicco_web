@@ -11,7 +11,7 @@ import type { IGetTransactionsListOptions } from "@/features/transactions/types"
 import { formatCurrency } from "@/features/accounts/helpers/currency";
 import dayjs from "dayjs";
 
-export async function getTransactionsListSchema({
+export async function getTransactionsList({
   queryParams,
 }: IGetTransactionsListOptions): Promise<TGetTransactionsList> {
   const supabase = await createClient();
