@@ -10,7 +10,7 @@ import {
 import { createClient } from "@/lib/supabase/utils/server";
 import { AccountFormFieldsSchema } from "@/features/accounts/schema";
 import { UserNotFound } from "@/features/auth/exceptions/UserNotFound";
-import { setAccountDefaultSelectedCookie } from "@/features/accounts/helpers/server/setAccountDefaultSelectedCookie";
+import { setAccountDefaultSelectedCookie } from "@/features/accounts/api/server/actions/setAccountDefaultSelectedCookie";
 
 export default async function createAccountAction(
   prevState: unknown,

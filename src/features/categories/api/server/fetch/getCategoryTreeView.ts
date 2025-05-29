@@ -1,11 +1,9 @@
-"use server";
-
 import { createClient } from "@/lib/supabase/utils/server";
 import {
-  GetCategoriesTreeViewSchema,
+  CategoryTreeListSchema,
   TCategoryTree,
-  TGetCategoriesTreeView,
 } from "@/features/categories/api/schema";
+import { TreeNodeData } from "@mantine/core";
 
 interface FlatCategory {
   id: string;
@@ -14,6 +12,11 @@ interface FlatCategory {
   created_at: string;
   user_id: string;
 }
+
+export type TGetCategoriesTreeView = {
+  categories: TCategoryTree[];
+  treeNodeData: TreeNodeData[];
+};
 
 function buildCategoryTreeView(
   categories: FlatCategory[]
@@ -28,8 +31,20 @@ function buildCategoryTreeView(
       }));
   };
 
+  const tree = CategoryTreeListSchema.parse(buildTree());
+
   return {
-    categories: buildTree(),
+    categories: tree,
+    treeNodeData: tree.map((category) => ({
+      label: category.name,
+      value: category.id,
+      children: category.children
+        ? category.children.map((child) => ({
+            label: child.name,
+            value: child.id,
+          }))
+        : [],
+    })),
   };
 }
 
@@ -45,7 +60,5 @@ export async function getCategoryTreeView(): Promise<TGetCategoriesTreeView> {
     throw new Error(`Error fetching categories: ${error.message}`);
   }
 
-  return GetCategoriesTreeViewSchema.parse(
-    buildCategoryTreeView(categories as FlatCategory[])
-  );
+  return buildCategoryTreeView(categories as FlatCategory[]);
 }

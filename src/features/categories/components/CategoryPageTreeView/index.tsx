@@ -1,39 +1,29 @@
 "use client";
 
-import {
-  Alert,
-  Group,
-  Modal,
-  Stack,
-  useTree,
-  type TreeNodeData,
-} from "@mantine/core";
-import { useCategorySelectMachine } from "@/features/categories/store/stateMachines/categorySelectMachine/hooks/useCategorySelectMachine";
+import { Group, Stack, useTree, type TreeNodeData } from "@mantine/core";
 import { CategoryTreeViewActions } from "@/features/categories/components/CategoriesTreeView/CategoryTreeViewActions";
+import { CategoriesTreeView } from "@/features/categories/components/CategoriesTreeView";
+import { CategoryDeleteModal } from "@/features/categories/components/Modals/CategoryDeleteModal";
+import { useCategorySelectTreeView } from "@/features/categories/hooks/useCategorySelectTreeView";
 import { useCategoryModals } from "@/features/categories/hooks/useCategoryModals";
-import { ScrollableTreeView } from "@/features/categories/components/CategoryPageTreeView/_internals/ScrollableTreeView";
-import { useTranslations } from "next-intl";
-import { CategoryDeleteModalContent } from "@/features/categories/components/Modals/CategoryDeleteModalContent";
 
 interface IProps {
   data: TreeNodeData[];
 }
 
 export function CategoryPageTreeView({ data }: IProps) {
-  const tree = useTree();
-
-  const t = useTranslations("Categories");
-
   const { selectCategory, selectedCategory, unSelectCategory } =
-    useCategorySelectMachine();
-
+    useCategorySelectTreeView({
+      defaultSelectedCategory: undefined,
+    });
   const {
     openCategoryCreateModal,
-    openCategoryUpdateModal,
     openCategoryDeleteModal,
-    isDeleteModalOpen,
+    openCategoryUpdateModal,
     closeCategoryDeleteModal,
+    isDeleteModalOpen,
   } = useCategoryModals();
+  const tree = useTree();
 
   return (
     <>
@@ -48,7 +38,7 @@ export function CategoryPageTreeView({ data }: IProps) {
             updateAction={
               selectedCategory
                 ? {
-                    onClick: () => openCategoryUpdateModal(selectedCategory),
+                    onClick: () => openCategoryUpdateModal(selectedCategory!),
                     disabled: false,
                   }
                 : undefined
@@ -63,33 +53,20 @@ export function CategoryPageTreeView({ data }: IProps) {
             }
           />
         </Group>
-        {data.length > 0 ? (
-          <ScrollableTreeView
-            tree={tree}
-            data={data}
-            selectCategory={selectCategory}
-            unSelectCategory={unSelectCategory}
-          />
-        ) : (
-          <Alert variant="light" color="blue">
-            {t("dataList.emptyListMessage")}
-          </Alert>
-        )}
+        <CategoriesTreeView
+          data={data}
+          selectCategory={selectCategory}
+          tree={tree}
+          unSelectCategory={unSelectCategory}
+        />
       </Stack>
       {selectedCategory ? (
-        <Modal
-          opened={isDeleteModalOpen}
-          onClose={closeCategoryDeleteModal}
-          centered
-          title={t("modals.delete.title")}
-        >
-          <CategoryDeleteModalContent
-            closeModal={closeCategoryDeleteModal}
-            message={t("modals.delete.message")}
-            selectedCategory={selectedCategory}
-            unSelectCategory={unSelectCategory}
-          />
-        </Modal>
+        <CategoryDeleteModal
+          selectedCategory={selectedCategory}
+          isDeleteModalOpen={isDeleteModalOpen}
+          closeCategoryDeleteModal={closeCategoryDeleteModal}
+          unSelectCategory={unSelectCategory}
+        />
       ) : null}
     </>
   );

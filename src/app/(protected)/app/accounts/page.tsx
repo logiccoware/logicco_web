@@ -6,7 +6,7 @@ import { getAccountsList } from "@/features/accounts/api/server/fetch/getAccount
 import { AccountCreateButton } from "@/features/accounts/components/AccountsDataList/AccountCreateButton";
 import { toAccountsDataList } from "@/features/accounts/helpers/toAccountsDataList";
 import { AccountsDataList } from "@/features/accounts/components/AccountsDataList";
-import { getAccountDefaultSelectedCookie } from "@/features/accounts/helpers/server/getAccountDefaultSelectedCookie";
+import { getAccountDefaultSelectedCookie } from "@/features/accounts/api/server/actions/getAccountDefaultSelectedCookie";
 
 export const metadata: Metadata = {
   title: "Accounts | Logicco",

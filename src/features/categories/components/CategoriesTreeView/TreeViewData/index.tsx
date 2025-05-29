@@ -3,7 +3,7 @@
 import { Tree, TreeNodeData, UseTreeReturnType } from "@mantine/core";
 import classes from "@/features/categories/components/CategoriesTreeView/CategoriesTreeView.module.css";
 import { TreeViewNode } from "@/features/categories/components/CategoriesTreeView/TreeViewNode";
-import type { TSelectCategoryFunction } from "@/features/categories/store/stateMachines/types";
+import type { TSelectCategoryFunction } from "@/features/categories/types";
 
 interface IProps {
   tree: UseTreeReturnType;

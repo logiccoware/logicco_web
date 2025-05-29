@@ -16,9 +16,4 @@ export const BaseCategoryTreeSchema = z.object({
   ),
 });
 
-export type TGetCategoriesTreeView = z.infer<
-  typeof GetCategoriesTreeViewSchema
->;
-export const GetCategoriesTreeViewSchema = z.object({
-  categories: z.array(BaseCategoryTreeSchema),
-});
+export const CategoryTreeListSchema = z.array(BaseCategoryTreeSchema);
