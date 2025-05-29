@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, ComboboxItem, Group, Select } from "@mantine/core";
+import { Box, ComboboxItem, Flex, Select } from "@mantine/core";
 import { AddButton } from "@/features/transactions/components/Forms/PayeeSelectField/AddButton";
 import { TGetPayeesList } from "@/features/payees/schema";
 import { use } from "react";
@@ -20,8 +20,15 @@ export function PayeeSelectField({ defaultValue, data, error }: IProps) {
     label: payee.name,
   }));
   return (
-    <Group>
+    <Flex
+      gap="sm"
+      justify="flex-start"
+      align="center"
+      direction="row"
+      wrap="wrap"
+    >
       <Select
+        flex={1}
         error={error}
         label={t("label")}
         placeholder={t("placeholder")}
@@ -34,6 +41,6 @@ export function PayeeSelectField({ defaultValue, data, error }: IProps) {
       <Box mt="lg">
         <AddButton />
       </Box>
-    </Group>
+    </Flex>
   );
 }
