@@ -26,7 +26,7 @@ export function TransactionsDataList({ list }: IProps) {
       {list.map((group) => (
         <Stack key={group.date}>
           <Divider variant="dashed" />
-          <Text>{dayjs(new Date(group.date)).format("MMM D")}</Text>
+          <Text>{dayjs(group.date).format("MMM D")}</Text>
           {group.transactions.map((item) => (
             <DataItem key={item.id} item={item} />
           ))}

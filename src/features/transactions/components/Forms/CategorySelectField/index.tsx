@@ -7,7 +7,7 @@ import {
   TSelectCategoryFunction,
 } from "@/features/categories/types";
 import { Button, Group, Modal, Chip, Stack, Text, Alert } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { useTranslations } from "next-intl";
 import { use } from "react";
 
@@ -30,6 +30,7 @@ export function CategorySelectField({
   const categoriesData = use(data);
   const [opened, { open, close }] = useDisclosure(false);
   const selectedCategoryLabel = getSelectedCategoryLabel();
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   function getSelectedCategoryLabel() {
     if (!selectedCategory) {
@@ -66,26 +67,36 @@ export function CategorySelectField({
       <Modal
         withCloseButton={false}
         centered
+        fullScreen={isMobile}
         opened={opened}
         onClose={handleClose}
         title={t("modal.title")}
+        styles={{
+          body: {
+            height: isMobile ? "calc(100vh - 60px)" : "70vh",
+            display: "flex",
+            flexDirection: "column",
+          },
+        }}
       >
-        <Stack>
+        <Stack style={{ flex: 1, minHeight: 0 }}>
           <CategoryModalContent
             selectCategory={selectCategory}
             selectedCategory={selectedCategory}
             unSelectCategory={unSelectCategory}
             data={categoriesData.treeNodeData}
+            footer={
+              <Group justify="flex-end">
+                <Button
+                  variant="default"
+                  disabled={!Boolean(selectedCategory)}
+                  onClick={handleClose}
+                >
+                  {t("modal.cta")}
+                </Button>
+              </Group>
+            }
           />
-          <Group justify="flex-end">
-            <Button
-              variant="default"
-              disabled={!Boolean(selectedCategory)}
-              onClick={handleClose}
-            >
-              {t("modal.cta")}
-            </Button>
-          </Group>
         </Stack>
       </Modal>
     </>

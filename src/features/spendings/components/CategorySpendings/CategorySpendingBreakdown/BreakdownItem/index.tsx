@@ -1,6 +1,6 @@
 "use client";
 
-import { Accordion, Alert, Divider, Group, List } from "@mantine/core";
+import { Accordion, Alert, Box, Divider, Group, List } from "@mantine/core";
 import type { TCategorySpendingListItem } from "@/features/spendings/api/server/fetch/getSpendingByCategory";
 
 interface IProps {
@@ -22,14 +22,14 @@ export function BreakdownItem({ item }: IProps) {
         {hasChildren ? (
           <List ml={42} listStyleType="none" spacing="md" center>
             {item.children.map((child) => (
-              <>
+              <Box key={child.id}>
                 <List.Item key={child.id}>
                   <Group justify="space-between">
                     {child.name}: {child.amount}
                   </Group>
                 </List.Item>
                 <Divider mt="md" />
-              </>
+              </Box>
             ))}
           </List>
         ) : (
