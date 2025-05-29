@@ -1,0 +1,27 @@
+[
+  {
+    id: '589ac3a4-60f1-45f2-8efc-099b8f2d84dc',
+    date: '2025-05-03T15:00:00',
+    type: 'EXPENSE',
+    transaction_items: [ { id: '368a1ab8-2e09-4e6a-a988-ba97cf76bf8f', amount: 4000 } ],
+    payee: { id: '6f76bc56-b495-436b-a64b-48a1a7aa6be6', name: 'Tim hortons' }
+  },
+  {
+    id: '0399bb05-2daf-42cb-8f4a-5972d70151b4',
+    date: '2025-05-03T10:00:00',
+    type: 'EXPENSE',
+    transaction_items: [ { id: '4ecbf856-6d8f-474a-a38a-057522b03e2c', amount: 3000 } ],
+    payee: { id: '6f76bc56-b495-436b-a64b-48a1a7aa6be6', name: 'Tim hortons' }
+  }
+]
+Payee Spendings Data: {
+  hasDefaultSelectedAccount: true,
+  list: [
+    {
+      id: '6f76bc56-b495-436b-a64b-48a1a7aa6be6',
+      name: 'Tim hortons',
+      amount: '$70.00'
+    }
+  ],
+  pieChartData: [ { name: 'Tim hortons', value: 7000, color: '#3498db' } ]
+}

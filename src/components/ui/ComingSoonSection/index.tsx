@@ -10,7 +10,7 @@ export function ComingSoonSection() {
     <Box mt="xl">
       <Center>
         <Stack ta="center">
-          <Text size="lg">App is {t("Common.comingSoon")}</Text>
+          <Text size="lg">{t("Common.comingSoon")}</Text>
         </Stack>
       </Center>
     </Box>

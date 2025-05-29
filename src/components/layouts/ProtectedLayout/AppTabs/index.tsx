@@ -21,7 +21,7 @@ export function AppTabs() {
     <Tabs value={pathname} onChange={handleTabChange}>
       <Tabs.List>
         <Tabs.Tab value="/app/overview">Overview</Tabs.Tab>
-        <Tabs.Tab value="/app/spending">Spending</Tabs.Tab>
+        <Tabs.Tab value="/app/spending/payees">Spending</Tabs.Tab>
         <Tabs.Tab value="/app/transactions">Transactions</Tabs.Tab>
       </Tabs.List>
     </Tabs>
