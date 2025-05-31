@@ -3,11 +3,12 @@ import { createClient } from "@/lib/supabase/utils/server";
 import { z } from "zod";
 import dayjs from "dayjs";
 import { TAccountDefaultSelectedCookie } from "@/features/accounts/schema";
-import { TRANSACTION_TYPES } from "@/features/transactions/constants";
 import currency from "currency.js";
 import { CHART_COLORS } from "@/features/spendings/constants";
+import { getTransactionType } from "@/features/transactions/helpers/getTransactionType";
 
 export interface IGetSpendingByCategoryOptions {
+  transactionType?: string;
   month?: string;
   account: TAccountDefaultSelectedCookie | null;
 }
@@ -78,6 +79,7 @@ export type TGetSpendingByCategory = z.infer<
 >;
 
 export async function getSpendingByCategory({
+  transactionType,
   month,
   account,
 }: IGetSpendingByCategoryOptions): Promise<TGetSpendingByCategory> {
@@ -113,7 +115,7 @@ export async function getSpendingByCategory({
     `
     )
     .eq("account_id", account.id)
-    .eq("type", TRANSACTION_TYPES.EXPENSE)
+    .eq("type", getTransactionType(transactionType))
     .not("category_id", "is", null) // Ensure transaction has a category
     .gte("date", startOfMonth)
     .lte("date", endOfMonth);

@@ -13,15 +13,21 @@ export function AppTabs() {
 
   const handleTabChange = (value: string | null) => {
     if (value) {
-      router.push(`${value}${queryPart}`);
+      const path =
+        value === "/app/spending" ? "/app/spending/categories" : value;
+      router.push(`${path}${queryPart}`);
     }
   };
 
   return (
-    <Tabs value={pathname} onChange={handleTabChange}>
+    <Tabs
+      variant="outline"
+      value={pathname.includes("/app/spending") ? "/app/spending" : pathname}
+      onChange={handleTabChange}
+    >
       <Tabs.List>
         <Tabs.Tab value="/app/overview">Overview</Tabs.Tab>
-        <Tabs.Tab value="/app/spending/payees">Spending</Tabs.Tab>
+        <Tabs.Tab value="/app/spending">Spending</Tabs.Tab>
         <Tabs.Tab value="/app/transactions">Transactions</Tabs.Tab>
       </Tabs.List>
     </Tabs>

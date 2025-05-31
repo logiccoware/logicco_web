@@ -1,7 +1,7 @@
 "use client";
 
 import { Badge, Flex, Group, Paper, Text } from "@mantine/core";
-import { TTransaction } from "@/features/transactions/schema";
+import { TTransaction, TTransactionType } from "@/features/transactions/schema";
 import classes from "@/features/transactions/components/TransactionsDataList/TransactionsDataList.module.css";
 import { useTransactionsPageGroupLink } from "@/features/transactions/hooks/useTransactionsPageGroupLink";
 import { IconCategory } from "@tabler/icons-react";
@@ -15,6 +15,13 @@ interface IProps {
 export function DataItem({ item }: IProps) {
   const router = useRouter();
   const { getLink } = useTransactionsPageGroupLink();
+
+  function formatAmount(amount: string, type: TTransactionType): string {
+    if (type === "INCOME") {
+      return amount;
+    }
+    return `-${amount}`;
+  }
 
   return (
     <Flex
@@ -41,7 +48,9 @@ export function DataItem({ item }: IProps) {
           >
             {item.category}
           </Badge>
-          <Text>{item.amount}</Text>
+          <Text c={item.type === "INCOME" ? "green" : "default"}>
+            {formatAmount(item.amount, item.type)}
+          </Text>
         </Group>
       </Paper>
       <DataItemMenu transactionId={item.id} />

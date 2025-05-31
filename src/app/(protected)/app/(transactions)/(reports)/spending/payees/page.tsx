@@ -12,15 +12,16 @@ export const metadata: Metadata = {
 export default async function SpendingsPayeesPage({
   searchParams,
 }: {
-  searchParams: Promise<{ month?: string }>;
+  searchParams: Promise<{ month?: string; transactionType?: string }>;
 }) {
   await protectAuthRoute();
 
-  const { month } = await searchParams;
+  const { month, transactionType } = await searchParams;
 
   const accountDefaultSelectedCookie = await getAccountDefaultSelectedCookie();
 
   const data = await getSpendingByPayee({
+    transactionType,
     month,
     account: accountDefaultSelectedCookie,
   });

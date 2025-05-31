@@ -5,9 +5,10 @@ import type { TCategorySpendingListItem } from "@/features/spendings/api/server/
 
 interface IProps {
   item: TCategorySpendingListItem;
+  isLastItem?: boolean;
 }
 
-export function BreakdownItem({ item }: IProps) {
+export function BreakdownItem({ item, isLastItem }: IProps) {
   const hasChildren = item.children.length > 0;
 
   return (
@@ -28,7 +29,7 @@ export function BreakdownItem({ item }: IProps) {
                     {child.name}: {child.amount}
                   </Group>
                 </List.Item>
-                <Divider mt="md" />
+                {!isLastItem ? <Divider mt="sm" mb="md" /> : null}
               </Box>
             ))}
           </List>

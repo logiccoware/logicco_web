@@ -1,6 +1,6 @@
 "use client";
 
-import { Modal } from "@mantine/core";
+import { Modal, Text } from "@mantine/core";
 import { useRouter } from "next/navigation";
 import { TransactionPageAction } from "@/features/transactions/components/TransactionPageAction";
 import { TGetPayeesList } from "@/features/payees/schema";
@@ -44,7 +44,11 @@ export function TransactionActionModal({
       fullScreen={isMobile}
       opened={isOpen}
       onClose={handleClose}
-      title={title}
+      title={
+        <Text size="lg" fw={700}>
+          {title}
+        </Text>
+      }
       size="lg"
     >
       <TransactionPageAction

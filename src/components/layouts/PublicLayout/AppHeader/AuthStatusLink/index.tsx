@@ -11,7 +11,7 @@ interface IProps {
 export function AuthStatusLink({ closeDrawer }: IProps) {
   const t = useTranslations("Common");
   return (
-    <Button onClick={closeDrawer} component={NextLink} href="/app">
+    <Button onClick={closeDrawer} component={NextLink} href="/app/transactions">
       {t("publicLayout.header.links.app")}
     </Button>
   );
