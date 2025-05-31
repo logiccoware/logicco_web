@@ -1,16 +1,18 @@
 "use client";
 
-import { Alert, Group, Stack } from "@mantine/core";
+import { Alert, Group, Stack, Title } from "@mantine/core";
 import { TransactionTypeFilter } from "@/features/spendings/components/TransactionTypeFilter";
 
 interface IProps {
-  message?: string;
+  title: string;
+  message: string;
 }
 
-export function PageContentEmpty({ message }: IProps) {
+export function PageContentEmpty({ message, title }: IProps) {
   return (
     <Stack mt="lg">
-      <Group justify="flex-end">
+      <Group justify="space-between">
+        <Title order={4}>{title}</Title>
         <TransactionTypeFilter />
       </Group>
       <Alert>{message}</Alert>

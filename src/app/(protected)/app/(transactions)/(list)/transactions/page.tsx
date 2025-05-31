@@ -35,7 +35,7 @@ export default async function TransactionsPage({
       <Center my="md">
         <DateMonthSwitcher />
       </Center>
-      <Stack gap="xl">
+      <Stack mb={64} gap="xl">
         <Group justify="space-between">
           <Title order={4}>{t("dataList.title")}</Title>
           <TransactionCreateButton />
