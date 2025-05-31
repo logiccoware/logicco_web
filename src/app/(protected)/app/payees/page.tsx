@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PayeeDataList } from "@/features/payees/components/PayeeDataList";
 import { Group, Stack, Title } from "@mantine/core";
-import { PayeeCreateButton } from "@/features/payees/components/PayeeDataList/PayeeCreateButton";
+import { PayeeCreateButton } from "@/features/payees/components/PayeeCreateButton";
 import { getTranslations } from "next-intl/server";
 import { protectAuthRoute } from "@/features/auth/helpers/protectAuthRoute";
 import { getPayeesList } from "@/features/payees/api/server/fetch/getPayeesList";

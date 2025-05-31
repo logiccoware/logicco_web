@@ -3,11 +3,9 @@
 import { DateField } from "@/features/transactions/components/Forms/DateField";
 import { AmountField } from "@/features/transactions/components/Forms/AmountField";
 import { TypeSelectField } from "@/features/transactions/components/Forms/TypeSelectField";
-import { PayeeSelectField } from "@/features/transactions/components/Forms/PayeeSelectField";
 import { Suspense, use, useActionState, useEffect } from "react";
-import { Alert, Group, Input, Stack } from "@mantine/core";
+import { Alert, Group, Input, Stack, TreeNodeData } from "@mantine/core";
 import { TAccountDefaultSelectedCookie } from "@/features/accounts/schema";
-import { TGetPayeesList } from "@/features/payees/schema";
 import { CategorySelectField } from "@/features/transactions/components/Forms/CategorySelectField";
 import { TGetCategoriesTreeView } from "@/features/categories/api/server/fetch/getCategoryTreeView";
 import { NoteField } from "@/features/transactions/components/Forms/NoteField";
@@ -19,10 +17,12 @@ import { TGetTransaction } from "@/features/transactions/api/server/fetch/getTra
 import { useCategorySelectTreeView } from "@/features/categories/hooks/useCategorySelectTreeView";
 import { IFormActionState } from "@/lib/types";
 import { useRouter } from "next/navigation";
+import { EntitySelectField } from "@/components/ui/EntitySelectField";
+import { PayeeCreateButton } from "@/features/payees/components/PayeeCreateButton";
 
 interface IProps {
   accountDefaultSelectedCookie: Promise<TAccountDefaultSelectedCookie | null>;
-  payeesData: Promise<TGetPayeesList>;
+  payeesTreeNodeData: Promise<TreeNodeData[]>;
   categoriesData: Promise<TGetCategoriesTreeView>;
   transaction?: TGetTransaction;
   transactionFormAction: (
@@ -33,7 +33,7 @@ interface IProps {
 
 export function TransactionPageAction({
   accountDefaultSelectedCookie,
-  payeesData,
+  payeesTreeNodeData,
   categoriesData,
   transaction,
   transactionFormAction,
@@ -44,6 +44,8 @@ export function TransactionPageAction({
   );
 
   const router = useRouter();
+
+  const t = useTranslations("Transactions");
 
   const defaultSelectedCategory = transaction?.category
     ? {
@@ -59,7 +61,6 @@ export function TransactionPageAction({
 
   const errors = state?.error?.errors || null;
 
-  const t = useTranslations("Transactions");
   const { showErrorSnackbar, showSuccessSnackbar } = useSnackbar();
 
   const accountId = transaction?.account?.id || accountDefaultCookie?.id;
@@ -114,10 +115,15 @@ export function TransactionPageAction({
           <Group grow={false} w="100%">
             <Stack w="100%" gap="md">
               <Suspense fallback={<div>Loading payees...</div>}>
-                <PayeeSelectField
+                <EntitySelectField
+                  modalTitle={t("form.fields.payee.entitySelectModal.title")}
+                  data={payeesTreeNodeData}
                   defaultValue={transaction?.payee?.id}
+                  formFieldName="payeeId"
+                  formFieldLabel={t("form.fields.payee.label")}
                   error={errors?.payeeId}
-                  data={payeesData}
+                  formFieldPlaceHolder={t("form.fields.payee.placeholder")}
+                  actionButton={<PayeeCreateButton />}
                 />
               </Suspense>
               <Suspense fallback={<div>Loading categories...</div>}>
