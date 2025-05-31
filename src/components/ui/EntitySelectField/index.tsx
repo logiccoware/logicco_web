@@ -34,6 +34,7 @@ export function EntitySelectField({
   const tree = useTree({
     initialCheckedState: defaultValue ? [defaultValue] : [],
   });
+
   const selectFieldData = use(data);
   const [opened, { open, close }] = useDisclosure(false);
   const isMobile = useMediaQuery("(max-width: 768px)");

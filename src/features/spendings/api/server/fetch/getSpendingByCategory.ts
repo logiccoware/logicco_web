@@ -95,7 +95,9 @@ export async function getSpendingByCategory({
 
   const monthParam = month || dayjs().format("YYYY-MM-DD");
   const startOfMonth = dayjs(monthParam).startOf("month").format("YYYY-MM-DD");
-  const endOfMonth = dayjs(monthParam).endOf("month").format("YYYY-MM-DD");
+  const endOfMonth = dayjs(monthParam)
+    .endOf("month")
+    .format("YYYY-MM-DD 23:59:59.999");
 
   const { data: rawTransactions, error } = await supabase
     .from("transactions")
@@ -225,7 +227,7 @@ export async function getSpendingByCategory({
 
     pieChartData.push({
       name: categoryData.name,
-      value: currency(categoryData.totalAmount, { fromCents: true }).value ,
+      value: currency(categoryData.totalAmount, { fromCents: true }).value,
       color: CHART_COLORS[colorIndex % CHART_COLORS.length],
     });
     colorIndex++;

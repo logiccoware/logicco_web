@@ -58,7 +58,7 @@ export const GetSpendingByPayeeSchema = z.object({
 export async function getSpendingByPayee({
   month,
   account,
-  transactionType
+  transactionType,
 }: IGetSpendingByPayeeOptions): Promise<TGetSpendingByPayee> {
   const supabase = await createClient();
 
@@ -73,7 +73,9 @@ export async function getSpendingByPayee({
   // Get start and end dates for the month
   const monthParam = month || dayjs().format("YYYY-MM-DD");
   const startOfMonth = dayjs(monthParam).startOf("month").format("YYYY-MM-DD");
-  const endOfMonth = dayjs(monthParam).endOf("month").format("YYYY-MM-DD");
+  const endOfMonth = dayjs(monthParam)
+    .endOf("month")
+    .format("YYYY-MM-DD 23:59:59.999");
 
   const { data: transactions, error } = await supabase
     .from("transactions")
