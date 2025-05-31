@@ -24,5 +24,5 @@ export async function loginAction(
   }
 
   revalidatePath("/", "layout");
-  redirect("/app");
+  redirect("/app/transactions");
 }

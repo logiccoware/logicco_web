@@ -37,6 +37,7 @@ export async function getTransactionsList({
       date,
       note,
       created_at,
+      type,
       transaction_items (
         id,
         amount
@@ -84,6 +85,7 @@ export async function getTransactionsList({
     return {
       id: transaction.id,
       date: transaction.date,
+      type: transaction.type,
       amount,
       category: categoryDisplay,
       payee: transaction.payees.name,

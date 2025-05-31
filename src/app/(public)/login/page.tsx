@@ -17,7 +17,7 @@ export default async function LoginPage() {
   } = await supabase.auth.getUser();
 
   if (user) {
-    redirect("/app");
+    redirect("/app/transactions");
   }
 
   const t = await getTranslations("Auth.login.page");

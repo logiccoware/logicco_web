@@ -108,11 +108,11 @@
   "Spendings": {
     "payees": {
       "title": "Payees",
-      "emptyListMessage": "No transactions found."
+      "emptyListMessage": "No spending data found."
     },
     "categories": {
       "title": "Categories",
-      "emptyListMessage": "No transactions found."
+      "emptyListMessage": "No spending data found."
     }
   },
   "Transactions": {

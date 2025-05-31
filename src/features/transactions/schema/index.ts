@@ -48,6 +48,7 @@ export const GetTransactionsListQueryResponseSchema = z.array(
     date: z.string().min(1),
     note: z.string().nullable(),
     created_at: z.string().min(1),
+    type: TransactionTypeSchema,
     transaction_items: z.array(
       z.object({
         id: z.string().min(1),
@@ -79,6 +80,7 @@ export const TransactionSchema = z.object({
   category: z.string().min(1),
   payee: z.string().min(1),
   note: z.string().nullable(),
+  type: TransactionTypeSchema,
 });
 
 export type TGetTransactionsList = z.infer<typeof GetTransationsListSchema>;

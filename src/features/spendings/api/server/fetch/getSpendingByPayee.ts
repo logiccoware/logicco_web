@@ -3,12 +3,13 @@ import { createClient } from "@/lib/supabase/utils/server";
 import { z } from "zod";
 import dayjs from "dayjs";
 import { TAccountDefaultSelectedCookie } from "@/features/accounts/schema";
-import { TRANSACTION_TYPES } from "@/features/transactions/constants";
 import { TransactionTypeSchema } from "@/features/transactions/schema";
 import currency from "currency.js";
 import { CHART_COLORS } from "@/features/spendings/constants";
+import { getTransactionType } from "@/features/transactions/helpers/getTransactionType";
 
 export interface IGetSpendingByPayeeOptions {
+  transactionType?: string;
   month?: string;
   account: TAccountDefaultSelectedCookie | null;
 }
@@ -57,6 +58,7 @@ export const GetSpendingByPayeeSchema = z.object({
 export async function getSpendingByPayee({
   month,
   account,
+  transactionType
 }: IGetSpendingByPayeeOptions): Promise<TGetSpendingByPayee> {
   const supabase = await createClient();
 
@@ -73,6 +75,8 @@ export async function getSpendingByPayee({
   const startOfMonth = dayjs(monthParam).startOf("month").format("YYYY-MM-DD");
   const endOfMonth = dayjs(monthParam).endOf("month").format("YYYY-MM-DD");
 
+  console.log('transactionType', getTransactionType(transactionType));
+
   const { data: transactions, error } = await supabase
     .from("transactions")
     .select(
@@ -85,7 +89,7 @@ export async function getSpendingByPayee({
     `
     )
     .eq("account_id", account.id)
-    .eq("type", TRANSACTION_TYPES.EXPENSE)
+    .eq("type", getTransactionType(transactionType))
     .gte("date", startOfMonth)
     .lte("date", endOfMonth)
     .order("date", { ascending: false });

@@ -11,8 +11,12 @@ interface IProps {
 export function CategorySpendingBreakdown({ spendings }: IProps) {
   return (
     <Accordion chevronPosition="left" defaultValue="Apples">
-      {spendings.map((item) => (
-        <BreakdownItem key={item.id} item={item} />
+      {spendings.map((item, index) => (
+        <BreakdownItem
+          key={item.id}
+          item={item}
+          isLastItem={index === spendings.length - 1}
+        />
       ))}
     </Accordion>
   );
