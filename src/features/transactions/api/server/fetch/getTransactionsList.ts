@@ -10,6 +10,7 @@ import { getAccountDefaultSelectedCookie } from "@/features/accounts/api/server/
 import type { IGetTransactionsListOptions } from "@/features/transactions/types";
 import { formatCurrency } from "@/features/accounts/helpers/currency";
 import dayjs from "dayjs";
+// import { logData } from "@/lib/helpers/dev";
 
 export async function getTransactionsList({
   queryParams,
@@ -27,7 +28,9 @@ export async function getTransactionsList({
   // Get start and end dates for the month
   const monthParam = queryParams.month || dayjs().format("YYYY-MM-DD");
   const startOfMonth = dayjs(monthParam).startOf("month").format("YYYY-MM-DD");
-  const endOfMonth = dayjs(monthParam).endOf("month").format("YYYY-MM-DD");
+  const endOfMonth = dayjs(monthParam)
+    .endOf("month")
+    .format("YYYY-MM-DD 23:59:59.999");
 
   const query = supabase
     .from("transactions")
@@ -61,6 +64,8 @@ export async function getTransactionsList({
     .lte("date", endOfMonth);
 
   const { data, error } = await query.order("date", { ascending: false });
+
+  // logData("getTransactionsList query", data);
 
   if (error) {
     console.error("Error fetching transactions:", error);
