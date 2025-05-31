@@ -45,6 +45,7 @@ export function EntitySelectModalContent({
           <Input
             disabled={data.length === 0}
             rightSection={<IconSearch />}
+            size="md"
             onChange={(value) => {
               setSearchResultData(
                 data.filter((item) => {
