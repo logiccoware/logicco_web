@@ -14,7 +14,9 @@ export async function CategorySpendingPageContent({ data }: IProps) {
   const t = await getTranslations("Spendings.categories");
 
   if (data.list.length === 0) {
-    return <PageContentEmpty message={t("emptyListMessage")} />;
+    return (
+      <PageContentEmpty title={t("title")} message={t("emptyListMessage")} />
+    );
   }
 
   return (
@@ -24,10 +26,6 @@ export async function CategorySpendingPageContent({ data }: IProps) {
         withTooltip
         tooltipDataSource="segment"
         mx="auto"
-        withLabelsLine
-        labelsPosition="inside"
-        labelsType="percent"
-        withLabels
       />
       <Group justify="space-between">
         <Title order={4}>{t("title")}</Title>
