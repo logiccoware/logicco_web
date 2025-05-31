@@ -4,6 +4,15 @@
     "dataList": {
       "createButton": "Create"
     },
+    "modals": {
+      "entitySelect": {
+        "noEntityFoundMessage": "No results found.",
+        "cta": {
+          "dismiss": "Dismiss",
+          "select": "Select"
+        }
+      }
+    },
     "forms": {
       "createButton": "Create",
       "updateButton": "Update",
@@ -128,7 +137,11 @@
         },
         "payee": {
           "label": "Payee",
-          "placeholder": "Select payee"
+          "placeholder": "Select payee",
+          "entitySelectModal": {
+            "title": "Select Payee",
+            "cta": "Dismiss"
+          }
         },
         "amount": {
           "label": "Amount",
@@ -141,7 +154,7 @@
         "category": {
           "label": "Category",
           "placeholder": "Select category",
-          "noCategorySelectedMessage": "No category selected.",
+          "noCategorySelectedMessage": "Select category",
           "modal": {
             "title": "Select Category",
             "cta": "Dismiss"

@@ -1,9 +1,8 @@
 "use client";
 
-import { Modal, Text } from "@mantine/core";
+import { Modal, Text, TreeNodeData } from "@mantine/core";
 import { useRouter } from "next/navigation";
 import { TransactionPageAction } from "@/features/transactions/components/TransactionPageAction";
-import { TGetPayeesList } from "@/features/payees/schema";
 import { TGetCategoriesTreeView } from "@/features/categories/api/server/fetch/getCategoryTreeView";
 import { TAccountDefaultSelectedCookie } from "@/features/accounts/schema";
 import { IFormActionState } from "@/lib/types";
@@ -13,7 +12,7 @@ import { useMediaQuery } from "@mantine/hooks";
 interface IProps {
   transaction?: TGetTransaction;
   title: string;
-  payeesData: Promise<TGetPayeesList>;
+  payeesTreeNodeData: Promise<TreeNodeData[]>;
   categoriesData: Promise<TGetCategoriesTreeView>;
   accountDefaultSelectedCookie: Promise<TAccountDefaultSelectedCookie | null>;
   transactionFormAction: (
@@ -25,7 +24,7 @@ interface IProps {
 
 export function TransactionActionModal({
   title,
-  payeesData,
+  payeesTreeNodeData,
   categoriesData,
   accountDefaultSelectedCookie,
   transactionFormAction,
@@ -52,7 +51,7 @@ export function TransactionActionModal({
       size="lg"
     >
       <TransactionPageAction
-        payeesData={payeesData}
+        payeesTreeNodeData={payeesTreeNodeData}
         categoriesData={categoriesData}
         accountDefaultSelectedCookie={accountDefaultSelectedCookie}
         transactionFormAction={transactionFormAction}

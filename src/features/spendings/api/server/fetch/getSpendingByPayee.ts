@@ -75,8 +75,6 @@ export async function getSpendingByPayee({
   const startOfMonth = dayjs(monthParam).startOf("month").format("YYYY-MM-DD");
   const endOfMonth = dayjs(monthParam).endOf("month").format("YYYY-MM-DD");
 
-  console.log('transactionType', getTransactionType(transactionType));
-
   const { data: transactions, error } = await supabase
     .from("transactions")
     .select(
