@@ -15,7 +15,7 @@ export function DateField({ date, error }: IProps) {
       size="md"
       label={t("label")}
       placeholder={t("placeholder")}
-      defaultValue={date ?? new Date()}
+      defaultValue={date ?? undefined}
     />
   );
 }
