@@ -8,6 +8,8 @@ interface IProps {
 
 export function DateField({ date, error }: IProps) {
   const t = useTranslations("Transactions.form.fields.date");
+  const localDate = date ? new Date(date) : undefined;
+
   return (
     <DatePickerInput
       error={error}
@@ -15,7 +17,7 @@ export function DateField({ date, error }: IProps) {
       size="md"
       label={t("label")}
       placeholder={t("placeholder")}
-      defaultValue={date ?? undefined}
+      defaultValue={localDate}
     />
   );
 }
