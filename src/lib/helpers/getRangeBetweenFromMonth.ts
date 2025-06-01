@@ -15,8 +15,11 @@ export function getRangeBetweenFromMonth(
 ): IGetRangeBetweenFromMonthResult {
   const tz = "America/Winnipeg";
   const base = month ? dayjs.tz(month, tz) : dayjs().tz(tz);
-  const startOfMonth = base.startOf("month").format("YYYY-MM-DD");
-  const endOfMonth = base.endOf("month").format("YYYY-MM-DD 23:59:59.999");
+  const startOfMonth = base
+    .startOf("month")
+    .utc()
+    .format("YYYY-MM-DD HH:mm:ss[Z]");
+  const endOfMonth = base.endOf("month").utc().format("YYYY-MM-DD HH:mm:ss[Z]");
 
   return {
     startOfMonth,
