@@ -40,11 +40,11 @@ export default async function transactionCreateAction(
 
   if (validatedFields.error) {
     return formActionValidationError(
-      validatedFields.error.flatten().fieldErrors
+      validatedFields.error.flatten().fieldErrors,
+      formDataFields,
     );
   }
 
-  // Rest of your transaction creation logic...
   const { data: transaction, error: transactionError } = await supabase
     .from("transactions")
     .insert({

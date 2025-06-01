@@ -13,7 +13,9 @@ export function formActionGenericError(): IFormActionState {
 }
 
 export function formActionValidationError(
-  errorObject: Record<string, string[]>
+  errorObject: Record<string, string[]>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  rawFormData?: any
 ): IFormActionState {
   const transformed: Record<string, string> = {};
 
@@ -27,6 +29,7 @@ export function formActionValidationError(
     error: {
       type: "VALIDATION_ERROR",
       errors: transformed,
+      inputs: rawFormData,
     },
     success: false,
   };

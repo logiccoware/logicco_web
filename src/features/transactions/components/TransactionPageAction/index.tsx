@@ -118,7 +118,11 @@ export function TransactionPageAction({
                 <EntitySelectField
                   modalTitle={t("form.fields.payee.entitySelectModal.title")}
                   data={payeesTreeNodeData}
-                  defaultValue={transaction?.payee?.id}
+                  defaultValue={
+                    transaction?.payee?.id ||
+                    state?.error?.inputs?.payeeId ||
+                    undefined
+                  }
                   formFieldName="payeeId"
                   formFieldLabel={t("form.fields.payee.label")}
                   error={errors?.payeeId}

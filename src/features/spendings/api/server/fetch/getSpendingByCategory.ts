@@ -1,11 +1,11 @@
 import { formatCurrency } from "@/features/accounts/helpers/currency";
 import { createClient } from "@/lib/supabase/utils/server";
 import { z } from "zod";
-import dayjs from "dayjs";
 import { TAccountDefaultSelectedCookie } from "@/features/accounts/schema";
 import currency from "currency.js";
 import { CHART_COLORS } from "@/features/spendings/constants";
 import { getTransactionType } from "@/features/transactions/helpers/getTransactionType";
+import { getRangeBetweenFromMonth } from "@/lib/helpers/getRangeBetweenFromMonth";
 
 export interface IGetSpendingByCategoryOptions {
   transactionType?: string;
@@ -93,11 +93,7 @@ export async function getSpendingByCategory({
     };
   }
 
-  const monthParam = month || dayjs().format("YYYY-MM-DD");
-  const startOfMonth = dayjs(monthParam).startOf("month").format("YYYY-MM-DD");
-  const endOfMonth = dayjs(monthParam)
-    .endOf("month")
-    .format("YYYY-MM-DD 23:59:59.999");
+  const { startOfMonth, endOfMonth } = getRangeBetweenFromMonth(month);
 
   const { data: rawTransactions, error } = await supabase
     .from("transactions")
