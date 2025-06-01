@@ -9,7 +9,6 @@ import {
 } from "@/lib/api/helpers/formAction";
 import { createClient } from "@/lib/supabase/utils/server";
 import { TransactionFormValidationSchema } from "@/features/transactions/schema";
-import { UserNotFound } from "@/features/auth/exceptions/UserNotFound";
 
 export default async function transactionUpdateAction(
   prevState: unknown,
@@ -22,7 +21,7 @@ export default async function transactionUpdateAction(
   } = await supabase.auth.getUser();
 
   if (userError || !user) {
-    throw new UserNotFound();
+    return formActionGenericError();
   }
 
   const transactionId = formData.get("transactionId");
@@ -50,55 +49,58 @@ export default async function transactionUpdateAction(
     );
   }
 
-  const { error: transactionError } = await supabase
-    .from("transactions")
-    .update({
-      date: validatedFields.data.date,
-      note: validatedFields.data.note,
-      account_id: validatedFields.data.accountId,
-      payee_id: validatedFields.data.payeeId,
-      category_id: validatedFields.data.categoryId,
-      type: validatedFields.data.type,
-    })
-    .eq("id", transactionId)
-    .eq("user_id", user.id);
+  try {
+    const { error: transactionError } = await supabase
+      .from("transactions")
+      .update({
+        date: validatedFields.data.date,
+        note: validatedFields.data.note,
+        account_id: validatedFields.data.accountId,
+        payee_id: validatedFields.data.payeeId,
+        category_id: validatedFields.data.categoryId,
+        type: validatedFields.data.type,
+      })
+      .eq("id", transactionId)
+      .eq("user_id", user.id);
 
-  if (transactionError) {
-    console.error(transactionError);
-    return formActionGenericError();
-  }
-  const { data: items, error: findError } = await supabase
-    .from("transaction_items")
-    .select("id")
-    .eq("transaction_id", transactionId)
-    .eq("user_id", user.id);
+    if (transactionError) {
+      console.error(transactionError);
+      return formActionGenericError();
+    }
+    const { data: items, error: findError } = await supabase
+      .from("transaction_items")
+      .select("id")
+      .eq("transaction_id", transactionId)
+      .eq("user_id", user.id);
 
-  if (findError) {
-    console.error(findError);
-    return formActionGenericError();
-  }
+    if (findError) {
+      console.error(findError);
+      return formActionGenericError();
+    }
 
-  if (!items || items.length === 0) {
-    return formActionGenericError();
-  }
+    if (!items || items.length === 0) {
+      return formActionGenericError();
+    }
 
-  // Update the first (and should be only) transaction item
-  const { error: itemError } = await supabase
-    .from("transaction_items")
-    .update({
-      amount: Math.round(parseFloat(validatedFields.data.amount) * 100),
-    })
-    .eq("id", items[0].id)
-    .eq("user_id", user.id);
+    // Update the first (and should be only) transaction item
+    const { error: itemError } = await supabase
+      .from("transaction_items")
+      .update({
+        amount: Math.round(parseFloat(validatedFields.data.amount) * 100),
+      })
+      .eq("id", items[0].id)
+      .eq("user_id", user.id);
 
-  if (itemError) {
-    console.error(itemError);
+    if (itemError) {
+      console.error(itemError);
+      return formActionGenericError();
+    }
+  } catch (e) {
+    console.error("Unexpected error in transactionUpdateAction:", e);
     return formActionGenericError();
   }
 
   revalidatePath("app/transactions");
 
   return formActionSuccess();
-
-  // redirect(`/app/transactions${queryString}`);
 }

@@ -6,7 +6,6 @@ import {
   formActionSuccess,
 } from "@/lib/api/helpers/formAction";
 import { createClient } from "@/lib/supabase/utils/server";
-import { UserNotFound } from "@/features/auth/exceptions/UserNotFound";
 import { revalidatePath } from "next/cache";
 
 export default async function transactionDeleteAction(
@@ -20,25 +19,30 @@ export default async function transactionDeleteAction(
   } = await supabase.auth.getUser();
 
   if (userError || !user) {
-    throw new UserNotFound();
+    return formActionGenericError();
   }
 
   const transactionId = formData.get("entityId") as string;
 
-  const { error } = await supabase
-    .from("transactions")
-    .delete()
-    .eq("id", transactionId)
-    .eq("user_id", user.id)
-    .select();
+  try {
+    const { error } = await supabase
+      .from("transactions")
+      .delete()
+      .eq("id", transactionId)
+      .eq("user_id", user.id)
+      .select();
 
-  if (error) {
-    console.error(error);
-    return formActionGenericError();
-  }
+    if (error) {
+      console.error(error);
+      return formActionGenericError();
+    }
 
-  if (error) {
-    console.error(error);
+    if (error) {
+      console.error(error);
+      return formActionGenericError();
+    }
+  } catch (e) {
+    console.error("Error deleting transaction:", e);
     return formActionGenericError();
   }
 
