@@ -1,7 +1,7 @@
 "use client";
 
-import { AppErrorUnknown } from "@/components/errors/AppError/AppErrorUnknown";
 import { useEffect } from "react";
+import { Button } from "@/components/ui/button";
 
 export default function Error({
   error,
@@ -15,5 +15,12 @@ export default function Error({
     console.error(error);
   }, [error]);
 
-  return <AppErrorUnknown ctaClick={reset} />;
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen">
+      <h2 className="text-xl font-semibold mb-4">Something went wrong.</h2>
+      <Button onClick={reset} className="rounded-full">
+        Retry
+      </Button>
+    </div>
+  );
 }
