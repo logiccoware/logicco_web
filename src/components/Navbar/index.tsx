@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/Logo";
+import { MONOVRA_APP_LINK } from "@/lib/contants";
 
 export const Navbar = () => {
   return (
@@ -10,13 +11,10 @@ export const Navbar = () => {
         <Logo />
 
         <div className="flex items-center gap-3">
-          <Button
-            onClick={() => {
-              console.log("test");
-            }}
-            className="rounded-full"
-          >
-            Sign In
+          <Button asChild className="rounded-full">
+            <a href={MONOVRA_APP_LINK} target="_blank" rel="noreferrer">
+              Sign In
+            </a>
           </Button>
         </div>
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { Button } from "@/components/ui/button";
 
 export default function Error({
   error,
@@ -15,8 +16,11 @@ export default function Error({
   }, [error]);
 
   return (
-    <button onClick={() => reset()} className="btn btn-primary">
-      Retry
-    </button>
+    <div className="flex flex-col items-center justify-center min-h-screen">
+      <h2 className="text-xl font-semibold mb-4">Something went wrong.</h2>
+      <Button onClick={reset} className="rounded-full">
+        Retry
+      </Button>
+    </div>
   );
 }

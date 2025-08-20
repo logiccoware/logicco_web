@@ -11,39 +11,39 @@ import React from "react";
 const features = [
   {
     icon: Settings2,
-    title: "Customizable Layouts",
+    title: "Custom Categories & Subcategories",
     description:
-      "Design your space with drag-and-drop simplicity—create grids, lists, or galleries in seconds.",
+      "Organize your expenses and income with flexible categories and subcategories for detailed tracking.",
   },
   {
     icon: Blocks,
-    title: "Interactive Widgets",
+    title: "Multiple Accounts",
     description:
-      "Embed polls, quizzes, or forms to keep your audience engaged.",
+      "Manage finances across bank accounts, credit cards, and cash wallets—all in one place.",
   },
   {
     icon: Bot,
-    title: "AI-Powered Tools",
+    title: "Smart Payee Management",
     description:
-      "Generate summaries, auto-format content, or translate into multiple languages seamlessly.",
-  },
-  {
-    icon: Film,
-    title: "Media Integrations",
-    description:
-      "Connect with Spotify, Instagram, or your own media library for dynamic visuals and sound.",
+      "Add and track payees for every transaction, making it easy to analyze spending patterns.",
   },
   {
     icon: ChartPie,
-    title: "Advanced Analytics",
+    title: "Comprehensive Reports & Analytics",
     description:
-      "Track engagement, clicks, and user activity with intuitive charts and reports.",
+      "Visualize your spending and income trends with interactive charts and detailed reports.",
+  },
+  {
+    icon: Film,
+    title: "Transaction History",
+    description:
+      "View, filter, and search your complete transaction history for quick insights.",
   },
   {
     icon: MessageCircle,
-    title: "Seamless Collaboration",
+    title: "Budgeting Tools",
     description:
-      "Comment, tag, and assign tasks directly within your documents.",
+      "Set budgets for categories and monitor progress to stay on track with your financial goals.",
   },
 ];
 

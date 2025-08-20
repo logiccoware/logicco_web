@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Home | Logicco",
+  title: "Home | Monovra",
   description: "Simplify tracking your expenses",
 };
 
