@@ -1,6 +1,5 @@
 "use client";
 
-import { AppErrorUnknown } from "@/components/errors/AppError/AppErrorUnknown";
 import { useEffect } from "react";
 
 export default function Error({
@@ -15,5 +14,9 @@ export default function Error({
     console.error(error);
   }, [error]);
 
-  return <AppErrorUnknown ctaClick={reset} />;
+  return (
+    <button onClick={() => reset()} className="btn btn-primary">
+      Retry
+    </button>
+  );
 }
